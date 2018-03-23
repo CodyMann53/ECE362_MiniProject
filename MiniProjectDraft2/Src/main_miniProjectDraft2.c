@@ -138,13 +138,13 @@ int main(void)
 		  ms = 0;
 		  if(state == 1)
 		  {
-			  setBlack(colors, 2, 100);
+			  setRed(colors, 2, 100);
 			  state = 0;
 			  ledStripWrite(colors, 6);
 		  }
 		  else
 		  {
-			  setWhite(colors, 2, percent);
+			  setBlue(colors, 2, percent);
 			  state = 1;
 			  ledStripWrite(colors, 6);
 		  }
