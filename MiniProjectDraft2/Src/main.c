@@ -110,6 +110,7 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC_Init();
   MX_TIM1_Init();
+
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim1);
 
@@ -138,12 +139,14 @@ int main(void)
 		  ms = 0;
 		  if(state == 1)
 		  {
+			  setRed(colors, 1, 100);
 			  setRed(colors, 2, 100);
 			  state = 0;
 			  ledStripWrite(colors, 6);
 		  }
 		  else
 		  {
+			  setBlue(colors, 1, percent);
 			  setBlue(colors, 2, percent);
 			  state = 1;
 			  ledStripWrite(colors, 6);
