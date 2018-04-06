@@ -16,7 +16,7 @@
 "Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o"
 "Src/ledDriver.o"
 "Src/ledFunctions.o"
-"Src/main_miniProjectDraft2.o"
+"Src/main.o"
 "Src/stm32f0xx_hal_msp.o"
 "Src/stm32f0xx_it.o"
 "Src/system_stm32f0xx.o"
