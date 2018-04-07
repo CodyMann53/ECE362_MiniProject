@@ -1,6 +1,6 @@
+#include <displayDriver.h>
 #include "stm32f0xx_hal.h"
 #include "spi.h"
-#include <display.h>
 #include "string.h"
 
 void displayOn(void){
