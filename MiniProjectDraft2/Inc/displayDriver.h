@@ -22,7 +22,6 @@ void transmitDisplay(char * string);
 /* clears the whole display and sets cursor back to home position */
 void displayClear(void);
 
-
 /* turns on the blinking cursor at home position */
 void turnOnBlinkingCursor(void);
 
@@ -35,10 +34,10 @@ void displayBrightness(int brightness);
 /* 0 - 79 possible position. Each row has 15 coloumns. 0 is home position, */
 void cursorPosition(int position);
 
+/* Brings the cursor back to the home position */
 void cursorHome(void);
 
-void timeoutLED(int value);
-
+/* Moves the cursor back one space and deletes the previous character */
 void backspace(void);
 
 #endif /* DISPLAYDRIVER_H_ */
