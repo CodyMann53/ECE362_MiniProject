@@ -6,6 +6,7 @@
 C_SRCS += \
 ../Src/displayDriver.c \
 ../Src/gpio.c \
+../Src/interrupts.c \
 ../Src/ledFunctions.c \
 ../Src/main.c \
 ../Src/spi.c \
@@ -20,6 +21,7 @@ S_UPPER_SRCS += \
 OBJS += \
 ./Src/displayDriver.o \
 ./Src/gpio.o \
+./Src/interrupts.o \
 ./Src/ledDriver.o \
 ./Src/ledFunctions.o \
 ./Src/main.o \
@@ -35,6 +37,7 @@ S_UPPER_DEPS += \
 C_DEPS += \
 ./Src/displayDriver.d \
 ./Src/gpio.d \
+./Src/interrupts.d \
 ./Src/ledFunctions.d \
 ./Src/main.d \
 ./Src/spi.d \

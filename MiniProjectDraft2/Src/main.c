@@ -46,6 +46,7 @@
 #include "ledFunctions.h"
 #include "globalVariables.h"
 #include "displayDriver.h"
+#include "interrupts.h"
 
 /* USER CODE END Includes */
 
@@ -63,10 +64,11 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
+// callback function definitions
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
 	if (htim == &htim2){
-		ms = ms + 2;
+		tim1_IT();
 	}
 }
 
@@ -125,9 +127,8 @@ int main(void)
   {
 
 	  //mode 1
-	  delay(1000);
+	  delay(100);
 	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
-
 
 	  //mode 2
 
