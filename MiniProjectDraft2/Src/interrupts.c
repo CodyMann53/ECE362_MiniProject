@@ -7,14 +7,16 @@
 #include "globalVariables.h"
 #include "main.h"
 #include "interrupts.h"
+#include "tim.h"
 
-/* Timer 1 is interrupt is used to increment a ms variable used for a ms delay function */
 void tim1_IT(void){
 
 	// increment millsecond counter by 2
 	ms = ms + 2;
 }
 
-void tim2_IT(void){
+void userB1_IT(void){
 
+	// interrupt has fired so set user button 1 flag
+	userBtnFlag = 1;
 }

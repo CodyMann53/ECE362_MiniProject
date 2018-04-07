@@ -55,6 +55,7 @@
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
 	volatile int ms = 0;
+	volatile int userBtnFlag = 0;
 
 /* USER CODE END PV */
 
@@ -70,6 +71,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 	if (htim == &htim2){
 		tim1_IT();
 	}
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+
+		userB1_IT();
 }
 
 /* USER CODE END PFP */
@@ -117,7 +123,6 @@ int main(void)
   displayBrightness(8);
   displayClear();
   turnOnBlinkingCursor();
-  transmitDisplay("48 Mhz baby");
 
   /* USER CODE END 2 */
 
@@ -127,12 +132,38 @@ int main(void)
   {
 
 	  //mode 1
-	  delay(100);
-	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+	  transmitDisplay("Mode 1");
+	  while(userBtnFlag == 0){
+
+	  }
+	  // reset user button flag
+	  userBtnFlag = 0;
+
+	  //clear display
+	  displayClear();
 
 	  //mode 2
+	  transmitDisplay("Mode 2");
+	  while (userBtnFlag == 0){
+
+	  }
+	  //reset user button flag
+	  userBtnFlag = 0;
+
+	  // clear display
+	  displayClear();
 
 	  //mode 3
+	  transmitDisplay("Mode 3");
+	  while (userBtnFlag == 0){
+
+	  }
+	  //reset user button flag
+	  userBtnFlag = 0;
+
+	  // clear display
+	  displayClear();
+
 
   /* USER CODE END WHILE */
 

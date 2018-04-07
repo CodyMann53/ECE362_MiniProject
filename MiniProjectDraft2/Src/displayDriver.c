@@ -34,7 +34,6 @@ void transmitDisplay(char * string){
 		// delay 10ms
 		delay(2);
 	}
-
 }
 
 void displayClear(void){
