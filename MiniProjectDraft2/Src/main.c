@@ -115,7 +115,7 @@ int main(void)
   displayBrightness(8);
   displayClear();
   turnOnBlinkingCursor();
-  transmitDisplay("Hi");
+  transmitDisplay("48 Mhz baby");
 
   /* USER CODE END 2 */
 
@@ -125,6 +125,9 @@ int main(void)
   {
 
 	  //mode 1
+	  delay(1000);
+	  HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_8);
+
 
 	  //mode 2
 
