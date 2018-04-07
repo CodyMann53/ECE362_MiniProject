@@ -9,9 +9,9 @@
 #define INTERRUPTS_H_
 
 /* Timer 1 is interrupt is used to increment a ms variable used for a ms delay function */
-void tim1_IT(void);
+void tim2_IT(void);
 
-/* Hitting user button 1 triggers this interrupt */
-void userB1_IT(void);
+/* used for debouncing user push button 1 */
+void tim3_IT(void);
 
 #endif /* INTERRUPTS_H_ */

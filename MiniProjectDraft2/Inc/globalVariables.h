@@ -13,5 +13,7 @@
 
  /* Flag for knowing when user button 1 has been pressed */
  extern volatile int userBtnFlag;
+ extern volatile int userBtnCurrent;
+ extern volatile int userBtnPrevious;
 
 #endif /* GLOBALVARIABLES_H_ */
