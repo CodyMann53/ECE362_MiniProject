@@ -58,6 +58,8 @@
 	volatile int userBtnFlag = 0;
 	volatile int userBtnCurrent = 0;
 	volatile int userBtnPrevious = 0;
+	volatile int msCountFlag = 0;
+
 
 /* USER CODE END PV */
 
@@ -70,9 +72,6 @@ void SystemClock_Config(void);
 // callback function definitions
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
-	if (htim == &htim2){
-		tim2_IT();
-	}
 	if (htim == &htim3){
 		tim3_IT();
 	}
@@ -114,7 +113,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_SPI1_Init();
-  MX_TIM2_Init();
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
@@ -124,11 +122,20 @@ int main(void)
   /* LCD initializations */
   delay(100);
   displayOn();
-  displayBrightness(8);
+  displayBrightness(2);
   displayClear();
   cursorHome();
   cursorPosition(5);
   transmitDisplay("Mode 1");
+
+  /* local variables */
+
+  // led array
+  struct color leds[2];
+
+  /* setting the two LEDS to all red */
+  setRed(leds, 0, 50);
+  setRed(leds, 1, 50);
 
   /* USER CODE END 2 */
 
@@ -137,34 +144,59 @@ int main(void)
   while (1)
   {
 
-	  //mode 1
+	  /* MODE 1 */
 	  backspace();
 	  transmitDisplay("1");
 	  while(userBtnFlag == 0){
 
-		  // signal processing code here
+		  // signal processing here
+		  delay(100);
+		  setRed(leds, 0, 50);
+		  setRed(leds, 1, 50);
+		  ledStripWrite(leds, 6);
+		  delay(100);
+		  setBlack(leds, 0);
+		  setBlack(leds, 1);
+		  ledStripWrite(leds, 6);
+
 
 	  }
 	  // reset user button flag
 	  userBtnFlag = 0;
 
-	  //mode 2
+	  /* MODE 2 */
 	  backspace();
 	  transmitDisplay("2");
 	  while (userBtnFlag == 0){
 
-		  // signal processing code here
+		  //signal processing here
+		  delay(100);
+		  setGreen(leds, 0, 50);
+		  setGreen(leds, 1, 50);
+		  ledStripWrite(leds, 6);
+		  delay(100);
+		  setBlack(leds, 0);
+		  setBlack(leds, 1);
+		  ledStripWrite(leds, 6);
 
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
 
-	  //mode 3
+	  /* MODE 3 */
 	  backspace();
 	  transmitDisplay("3");
 	  while (userBtnFlag == 0){
 
 		  // signal processing code here
+		  delay(100);
+		  setBlue(leds, 0, 50);
+		  setBlue(leds, 1, 50);
+		  ledStripWrite(leds, 6);
+		  delay(100);
+		  setBlack(leds, 0);
+		  setBlack(leds, 1);
+		  ledStripWrite(leds, 6);
 
 	  }
 	  //reset user button flag

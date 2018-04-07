@@ -1,3 +1,4 @@
-Src/ledFunctions.o: ../Src/ledFunctions.c ../Src/ledFunctions.h
+Src/ledFunctions.o: ../Src/ledFunctions.c \
+ C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h
 
-../Src/ledFunctions.h:
+C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h:

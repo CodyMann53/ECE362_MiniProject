@@ -1,4 +1,14 @@
+/*
+ * ledFunctions.c
+ *
+ *  Created on: Apr 7, 2018
+ *      Author: Andrew Osborne
+ */
+
+/* INCLUDES */
 #include "ledFunctions.h"
+
+/* FUNCTION DEFINITIONS */
 
 void setWhite (struct color* colors, int position, int percent)
 {
@@ -9,7 +19,7 @@ void setWhite (struct color* colors, int position, int percent)
 	return;
 }
 
-void setBlack (struct color* colors, int position, int percent)
+void setBlack (struct color* colors, int position)
 {
 		colors[position].green = 0;
 		colors[position].red = 0;
@@ -35,3 +45,14 @@ void setRed (struct color* colors, int position, int percent)
 
 	return;
 }
+
+void setGreen (struct color* colors, int position, int percent)
+{
+		colors[position].green = 255*percent/100;
+		colors[position].red = 0;
+		colors[position].blue = 0;
+
+	return;
+}
+
+
