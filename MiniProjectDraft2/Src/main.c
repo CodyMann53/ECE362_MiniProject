@@ -56,6 +56,8 @@
 /* Private variables ---------------------------------------------------------*/
 	volatile int ms = 0;
 	volatile int userBtnFlag = 0;
+	volatile int userBtnCurrent = 0;
+	volatile int userBtnPrevious = 0;
 
 /* USER CODE END PV */
 
@@ -69,13 +71,11 @@ void SystemClock_Config(void);
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
 	if (htim == &htim2){
-		tim1_IT();
+		tim2_IT();
 	}
-}
-
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-
-		userB1_IT();
+	if (htim == &htim3){
+		tim3_IT();
+	}
 }
 
 /* USER CODE END PFP */
@@ -115,14 +115,20 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_TIM2_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
+
+  /* start the debouncing timer */
+  HAL_TIM_Base_Start_IT(&htim3);
 
   /* LCD initializations */
   delay(100);
   displayOn();
   displayBrightness(8);
   displayClear();
-  turnOnBlinkingCursor();
+  cursorHome();
+  cursorPosition(5);
+  transmitDisplay("Mode 1");
 
   /* USER CODE END 2 */
 
@@ -132,38 +138,37 @@ int main(void)
   {
 
 	  //mode 1
-	  transmitDisplay("Mode 1");
+	  backspace();
+	  transmitDisplay("1");
 	  while(userBtnFlag == 0){
+
+		  // signal processing code here
 
 	  }
 	  // reset user button flag
 	  userBtnFlag = 0;
 
-	  //clear display
-	  displayClear();
-
 	  //mode 2
-	  transmitDisplay("Mode 2");
+	  backspace();
+	  transmitDisplay("2");
 	  while (userBtnFlag == 0){
+
+		  // signal processing code here
 
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
-
-	  // clear display
-	  displayClear();
 
 	  //mode 3
-	  transmitDisplay("Mode 3");
+	  backspace();
+	  transmitDisplay("3");
 	  while (userBtnFlag == 0){
+
+		  // signal processing code here
 
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
-
-	  // clear display
-	  displayClear();
-
 
   /* USER CODE END WHILE */
 
