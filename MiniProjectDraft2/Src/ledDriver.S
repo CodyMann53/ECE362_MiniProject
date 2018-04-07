@@ -1,3 +1,5 @@
+/* Author: Andrew Osborne */
+
 #Directives
   		.syntax unified
   		.cpu cortex-m0
@@ -39,6 +41,7 @@
 	//r5 - BSRR/BRR address (loaded with the proper address at the time of the GPIO toggle)
 	//r6 - the number of bytes of data to be written to the leds (passed as argument, loaded into r7 from r1)
 	//r7 - color data is loaded into this register
+
 
 ledStripWrite:
 		push {r4, r5, r6, r7}
