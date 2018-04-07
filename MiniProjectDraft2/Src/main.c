@@ -38,31 +38,23 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include "spi.h"
+#include "tim.h"
+#include "gpio.h"
 
 /* USER CODE BEGIN Includes */
 #include "ledFunctions.h"
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc;
-
-TIM_HandleTypeDef htim1;
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-int ms = 0;
-int state;
-int percent = 100;
-int direction = 1;
 
-struct color colors[2];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-static void MX_GPIO_Init(void);
-static void MX_ADC_Init(void);
-static void MX_TIM1_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
@@ -108,13 +100,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_ADC_Init();
-  MX_TIM1_Init();
-
+  MX_SPI1_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim1);
+  HAL_TIM_Base_Start_IT(&htim2);
 
-  state = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -122,36 +112,16 @@ int main(void)
   while (1)
   {
 
-	  if(ms > 180)
-	  {
-		  //percent += direction;
-		  if(percent > 100)
-		  {
-			   percent = 99;
-			   direction = -5;
-		  }
-		  else if(percent < 0)
-		  {
-			   percent = 1;
-			   direction = 5;
-		  }
+	  //mode 1
 
-		  ms = 0;
-		  if(state == 1)
-		  {
-			  setRed(colors, 1, 100);
-			  setRed(colors, 2, 100);
-			  state = 0;
-			  ledStripWrite(colors, 6);
-		  }
-		  else
-		  {
-			  setBlue(colors, 1, percent);
-			  setBlue(colors, 2, percent);
-			  state = 1;
-			  ledStripWrite(colors, 6);
-		  }
-	  }
+	  //mode 2
+
+	  //mode 3
+
+
+
+
+
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
@@ -173,11 +143,9 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.HSI14CalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
@@ -193,7 +161,7 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
@@ -212,126 +180,8 @@ void SystemClock_Config(void)
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
-/* ADC init function */
-static void MX_ADC_Init(void)
-{
-
-  ADC_ChannelConfTypeDef sConfig;
-
-    /**Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion) 
-    */
-  hadc.Instance = ADC1;
-  hadc.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV1;
-  hadc.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-  hadc.Init.ScanConvMode = ADC_SCAN_DIRECTION_FORWARD;
-  hadc.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
-  hadc.Init.LowPowerAutoWait = DISABLE;
-  hadc.Init.LowPowerAutoPowerOff = DISABLE;
-  hadc.Init.ContinuousConvMode = DISABLE;
-  hadc.Init.DiscontinuousConvMode = DISABLE;
-  hadc.Init.ExternalTrigConv = ADC_SOFTWARE_START;
-  hadc.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
-  hadc.Init.DMAContinuousRequests = DISABLE;
-  hadc.Init.Overrun = ADC_OVR_DATA_PRESERVED;
-  if (HAL_ADC_Init(&hadc) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-    /**Configure for the selected ADC regular channel to be converted. 
-    */
-  sConfig.Channel = ADC_CHANNEL_1;
-  sConfig.Rank = ADC_RANK_CHANNEL_NUMBER;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
-  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-    /**Configure for the selected ADC regular channel to be converted. 
-    */
-  sConfig.Channel = ADC_CHANNEL_2;
-  if (HAL_ADC_ConfigChannel(&hadc, &sConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
-/* TIM1 init function */
-static void MX_TIM1_Init(void)
-{
-
-  TIM_ClockConfigTypeDef sClockSourceConfig;
-  TIM_MasterConfigTypeDef sMasterConfig;
-
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 47999;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 5;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    _Error_Handler(__FILE__, __LINE__);
-  }
-
-}
-
-/** Configure pins as 
-        * Analog 
-        * Input 
-        * Output
-        * EVENT_OUT
-        * EXTI
-*/
-static void MX_GPIO_Init(void)
-{
-
-  GPIO_InitTypeDef GPIO_InitStruct;
-
-  /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LD4_Pin|LD3_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_EVT_RISING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pins : LD4_Pin LD3_Pin */
-  GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-}
-
 /* USER CODE BEGIN 4 */
-void timer1Int(void)
-{
-	ms += 5;
-}
+
 /* USER CODE END 4 */
 
 /**
