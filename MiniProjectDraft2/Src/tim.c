@@ -41,6 +41,23 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
+void delay(int msValue){
+
+	//reset ms value to 0
+	ms = 0;
+
+	// start timer2 interrupt mode
+	HAL_TIM_Base_Start_IT(&htim2);
+
+	// wait for desired amount of ms
+	while( ms < msValue);
+
+	//stop timer2 interrupt mode
+	HAL_TIM_Base_Stop_IT(&htim2);
+
+	return;
+
+}
 
 /* USER CODE END 0 */
 

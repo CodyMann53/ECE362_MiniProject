@@ -44,12 +44,16 @@
 
 /* USER CODE BEGIN Includes */
 #include "ledFunctions.h"
+#include "globalVariables.h"
+#include "displayDriver.h"
+
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
+	volatile int ms = 0;
 
 /* USER CODE END PV */
 
@@ -58,11 +62,12 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-void timer1Int(void);
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 {
-	timer1Int();
+	if (htim == &htim2){
+		ms = ms + 2;
+	}
 }
 
 /* USER CODE END PFP */
@@ -103,7 +108,14 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
+
+  /* LCD initializations */
+  delay(100);
+  displayOn();
+  displayBrightness(8);
+  displayClear();
+  turnOnBlinkingCursor();
+  transmitDisplay("Hi");
 
   /* USER CODE END 2 */
 
@@ -117,10 +129,6 @@ int main(void)
 	  //mode 2
 
 	  //mode 3
-
-
-
-
 
   /* USER CODE END WHILE */
 

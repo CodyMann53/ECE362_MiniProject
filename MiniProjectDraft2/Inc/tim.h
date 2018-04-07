@@ -48,12 +48,16 @@
 #include "main.h"
 
 /* USER CODE BEGIN Includes */
+#include "globalVariables.h"
 
 /* USER CODE END Includes */
 
 extern TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN Private defines */
+
+/* Uses TIM2 as a ms delay counter */
+void delay(int msValue);
 
 /* USER CODE END Private defines */
 
