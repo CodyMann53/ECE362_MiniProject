@@ -41,12 +41,14 @@
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
+#include "filter.h"
 
 /* USER CODE BEGIN Includes */
 #include "ledFunctions.h"
 #include "globalVariables.h"
 #include "displayDriver.h"
 #include "interrupts.h"
+
 
 /* USER CODE END Includes */
 
@@ -134,6 +136,8 @@ int main(void)
   // led array
   struct color leds[2];
 
+  int spectrum[7];
+
   /* setting the two LEDS to all red */
   setRed(leds, 0, 50);
   setRed(leds, 1, 50);
@@ -150,14 +154,7 @@ int main(void)
 	  while(userBtnFlag == 0){
 
 		  // signal processing here
-		  delay_ms(100);
-		  setRed(leds, 0, 50);
-		  setRed(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay_ms(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
+		  filter(spectrum);
 
 
 	  }
@@ -170,15 +167,7 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  //signal processing here
-		  delay_ms(100);
-		  setGreen(leds, 0, 50);
-		  setGreen(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay_ms(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
-
+		  filter(spectrum);
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
@@ -189,15 +178,7 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  // signal processing code here
-		  delay_ms(100);
-		  setBlue(leds, 0, 50);
-		  setBlue(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay_ms(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
-
+		  filter(spectrum);
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
