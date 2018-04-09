@@ -3760,6 +3760,8 @@ Discarded input sections
  .text          0x00000000        0x0 Src/tim.o
  .data          0x00000000        0x0 Src/tim.o
  .bss           0x00000000        0x0 Src/tim.o
+ .text.delay_us
+                0x00000000       0x12 Src/tim.o
  .text.HAL_TIM_Base_MspDeInit
                 0x00000000       0x28 Src/tim.o
  .debug_macro   0x00000000      0x8aa Src/tim.o
@@ -4143,8 +4145,9 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15
  .text.SystemInit
                 0x08001bdc       0x60 Src/system_stm32f0xx.o
                 0x08001bdc                SystemInit
- .text.delay    0x08001c3c       0x24 Src/tim.o
-                0x08001c3c                delay
+ .text.delay_ms
+                0x08001c3c       0x24 Src/tim.o
+                0x08001c3c                delay_ms
  .text.MX_TIM3_Init
                 0x08001c60       0x78 Src/tim.o
                 0x08001c60                MX_TIM3_Init
@@ -4387,7 +4390,7 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15
                 0x0000046f       0x1e c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
 OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x14880
+.debug_info     0x00000000    0x148b3
  .debug_info    0x00000000      0xe84 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_info    0x00000e84      0xfef Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_info    0x00001e73      0xe6f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4405,10 +4408,10 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_info    0x000111c7      0xb58 Src/stm32f0xx_hal_msp.o
  .debug_info    0x00011d1f      0xe0b Src/stm32f0xx_it.o
  .debug_info    0x00012b2a      0xa7b Src/system_stm32f0xx.o
- .debug_info    0x000135a5     0x1254 Src/tim.o
- .debug_info    0x000147f9       0x87 startup/startup_stm32f051x8.o
+ .debug_info    0x000135a5     0x1287 Src/tim.o
+ .debug_info    0x0001482c       0x87 startup/startup_stm32f051x8.o
 
-.debug_abbrev   0x00000000     0x2a7b
+.debug_abbrev   0x00000000     0x2a8a
  .debug_abbrev  0x00000000      0x2f4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_abbrev  0x000002f4      0x326 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_abbrev  0x0000061a      0x2a5 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4426,10 +4429,10 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_abbrev  0x0000217d      0x232 Src/stm32f0xx_hal_msp.o
  .debug_abbrev  0x000023af      0x216 Src/stm32f0xx_it.o
  .debug_abbrev  0x000025c5      0x205 Src/system_stm32f0xx.o
- .debug_abbrev  0x000027ca      0x29f Src/tim.o
- .debug_abbrev  0x00002a69       0x12 startup/startup_stm32f051x8.o
+ .debug_abbrev  0x000027ca      0x2ae Src/tim.o
+ .debug_abbrev  0x00002a78       0x12 startup/startup_stm32f051x8.o
 
-.debug_loc      0x00000000     0x775a
+.debug_loc      0x00000000     0x77a5
  .debug_loc     0x00000000       0x7c Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_loc     0x0000007c      0x393 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_loc     0x0000040f      0x2b2 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4442,9 +4445,9 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_loc     0x0000752a       0x3a Src/main.o
  .debug_loc     0x00007564       0x74 Src/spi.o
  .debug_loc     0x000075d8      0x10e Src/system_stm32f0xx.o
- .debug_loc     0x000076e6       0x74 Src/tim.o
+ .debug_loc     0x000076e6       0xbf Src/tim.o
 
-.debug_aranges  0x00000000      0xae0
+.debug_aranges  0x00000000      0xae8
  .debug_aranges
                 0x00000000       0xb8 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_aranges
@@ -4480,11 +4483,11 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_aranges
                 0x00000a58       0x28 Src/system_stm32f0xx.o
  .debug_aranges
-                0x00000a80       0x38 Src/tim.o
+                0x00000a80       0x40 Src/tim.o
  .debug_aranges
-                0x00000ab8       0x28 startup/startup_stm32f051x8.o
+                0x00000ac0       0x28 startup/startup_stm32f051x8.o
 
-.debug_ranges   0x00000000      0xa08
+.debug_ranges   0x00000000      0xa10
  .debug_ranges  0x00000000       0xa8 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_ranges  0x000000a8       0xb0 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_ranges  0x00000158       0x48 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4501,8 +4504,8 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_ranges  0x00000980       0x10 Src/stm32f0xx_hal_msp.o
  .debug_ranges  0x00000990       0x18 Src/stm32f0xx_it.o
  .debug_ranges  0x000009a8       0x18 Src/system_stm32f0xx.o
- .debug_ranges  0x000009c0       0x28 Src/tim.o
- .debug_ranges  0x000009e8       0x20 startup/startup_stm32f051x8.o
+ .debug_ranges  0x000009c0       0x30 Src/tim.o
+ .debug_ranges  0x000009f0       0x20 startup/startup_stm32f051x8.o
 
 .debug_macro    0x00000000    0x10141
  .debug_macro   0x00000000      0x32e Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -4583,7 +4586,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_macro   0x0000fb0f      0x30a Src/system_stm32f0xx.o
  .debug_macro   0x0000fe19      0x328 Src/tim.o
 
-.debug_line     0x00000000     0xaa86
+.debug_line     0x00000000     0xaa9b
  .debug_line    0x00000000      0x927 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_line    0x00000927      0x920 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_line    0x00001247      0x909 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4601,10 +4604,10 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_line    0x00008a86      0x7ac Src/stm32f0xx_hal_msp.o
  .debug_line    0x00009232      0x7c9 Src/stm32f0xx_it.o
  .debug_line    0x000099fb      0x7e0 Src/system_stm32f0xx.o
- .debug_line    0x0000a1db      0x828 Src/tim.o
- .debug_line    0x0000aa03       0x83 startup/startup_stm32f051x8.o
+ .debug_line    0x0000a1db      0x83d Src/tim.o
+ .debug_line    0x0000aa18       0x83 startup/startup_stm32f051x8.o
 
-.debug_str      0x00000000    0x528d7
+.debug_str      0x00000000    0x528eb
  .debug_str     0x00000000    0x5000a Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                               0x502fa (size before relaxing)
  .debug_str     0x0005000a      0x1f8 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
@@ -4619,26 +4622,26 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
                               0x50f16 (size before relaxing)
  .debug_str     0x0005204e      0x50d Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_tim_ex.o
                               0x50842 (size before relaxing)
- .debug_str     0x0005255b      0x173 Src/displayDriver.o
-                              0x50463 (size before relaxing)
- .debug_str     0x000526ce       0x35 Src/gpio.o
+ .debug_str     0x0005255b      0x176 Src/displayDriver.o
+                              0x50466 (size before relaxing)
+ .debug_str     0x000526d1       0x35 Src/gpio.o
                               0x4fe50 (size before relaxing)
- .debug_str     0x00052703       0x2b Src/interrupts.o
+ .debug_str     0x00052706       0x2b Src/interrupts.o
                               0x501c4 (size before relaxing)
- .debug_str     0x0005272e       0x4f Src/ledFunctions.o
+ .debug_str     0x00052731       0x4f Src/ledFunctions.o
                                0x257d (size before relaxing)
- .debug_str     0x0005277d       0x62 Src/main.o
-                              0x5083f (size before relaxing)
- .debug_str     0x000527df       0x17 Src/spi.o
+ .debug_str     0x00052780       0x62 Src/main.o
+                              0x50842 (size before relaxing)
+ .debug_str     0x000527e2       0x17 Src/spi.o
                               0x50277 (size before relaxing)
- .debug_str     0x000527f6       0x1b Src/stm32f0xx_hal_msp.o
+ .debug_str     0x000527f9       0x1b Src/stm32f0xx_hal_msp.o
                               0x4ff5d (size before relaxing)
- .debug_str     0x00052811       0x48 Src/stm32f0xx_it.o
+ .debug_str     0x00052814       0x48 Src/stm32f0xx_it.o
                               0x5014a (size before relaxing)
- .debug_str     0x00052859       0x5a Src/system_stm32f0xx.o
+ .debug_str     0x0005285c       0x5a Src/system_stm32f0xx.o
                               0x4fdc1 (size before relaxing)
- .debug_str     0x000528b3       0x24 Src/tim.o
-                              0x5051e (size before relaxing)
+ .debug_str     0x000528b6       0x35 Src/tim.o
+                              0x50532 (size before relaxing)
 
 .comment        0x00000000       0x7f
  .comment       0x00000000       0x7f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -4660,7 +4663,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .comment       0x0000007f       0x80 Src/system_stm32f0xx.o
  .comment       0x0000007f       0x80 Src/tim.o
 
-.debug_frame    0x00000000     0x1b48
+.debug_frame    0x00000000     0x1b58
  .debug_frame   0x00000000      0x174 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_frame   0x00000174       0xe4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
  .debug_frame   0x00000258       0xcc Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_gpio.o
@@ -4677,7 +4680,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_frame   0x000019d4       0x28 Src/stm32f0xx_hal_msp.o
  .debug_frame   0x000019fc       0x40 Src/stm32f0xx_it.o
  .debug_frame   0x00001a3c       0x38 Src/system_stm32f0xx.o
- .debug_frame   0x00001a74       0x68 Src/tim.o
- .debug_frame   0x00001adc       0x20 c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
- .debug_frame   0x00001afc       0x20 c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_divsi3.o)
- .debug_frame   0x00001b1c       0x2c c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-init.o)
+ .debug_frame   0x00001a74       0x78 Src/tim.o
+ .debug_frame   0x00001aec       0x20 c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
+ .debug_frame   0x00001b0c       0x20 c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_divsi3.o)
+ .debug_frame   0x00001b2c       0x2c c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-init.o)

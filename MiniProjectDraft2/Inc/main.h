@@ -51,6 +51,10 @@
 
 #define B1_Pin GPIO_PIN_0
 #define B1_GPIO_Port GPIOA
+#define Strobe_Pin GPIO_PIN_2
+#define Strobe_GPIO_Port GPIOA
+#define Reset_Pin GPIO_PIN_3
+#define Reset_GPIO_Port GPIOA
 #define LD4_Pin GPIO_PIN_8
 #define LD4_GPIO_Port GPIOC
 #define LD3_Pin GPIO_PIN_9

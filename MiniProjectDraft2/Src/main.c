@@ -116,11 +116,12 @@ int main(void)
   MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  /* start the debouncing timer */
+  /* start TIM2 and TIM3 */
   HAL_TIM_Base_Start_IT(&htim3);
 
+
   /* LCD initializations */
-  delay(100);
+  delay_ms(100);
   displayOn();
   displayBrightness(2);
   displayClear();
@@ -143,18 +144,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  /* MODE 1 */
 	  backspace();
 	  transmitDisplay("1");
 	  while(userBtnFlag == 0){
 
 		  // signal processing here
-		  delay(100);
+		  delay_ms(100);
 		  setRed(leds, 0, 50);
 		  setRed(leds, 1, 50);
 		  ledStripWrite(leds, 6);
-		  delay(100);
+		  delay_ms(100);
 		  setBlack(leds, 0);
 		  setBlack(leds, 1);
 		  ledStripWrite(leds, 6);
@@ -170,11 +170,11 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  //signal processing here
-		  delay(100);
+		  delay_ms(100);
 		  setGreen(leds, 0, 50);
 		  setGreen(leds, 1, 50);
 		  ledStripWrite(leds, 6);
-		  delay(100);
+		  delay_ms(100);
 		  setBlack(leds, 0);
 		  setBlack(leds, 1);
 		  ledStripWrite(leds, 6);
@@ -189,11 +189,11 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  // signal processing code here
-		  delay(100);
+		  delay_ms(100);
 		  setBlue(leds, 0, 50);
 		  setBlue(leds, 1, 50);
 		  ledStripWrite(leds, 6);
-		  delay(100);
+		  delay_ms(100);
 		  setBlack(leds, 0);
 		  setBlack(leds, 1);
 		  ledStripWrite(leds, 6);
