@@ -48,6 +48,7 @@
 #include "globalVariables.h"
 #include "displayDriver.h"
 #include "interrupts.h"
+#include "filter.h"
 
 
 /* USER CODE END Includes */
@@ -135,7 +136,7 @@ int main(void)
   /* local variables */
 
   // led array
-  struct color leds[2];
+  struct color leds[LEDS];
 
   int spectrum[7];
 
@@ -156,6 +157,9 @@ int main(void)
 
 		  // signal processing here
 		  filter(spectrum);
+		  allRed(leds, spectrum[0]/42);
+		  ledStripWrite(leds, BYTES);
+		  delay_ms(200);
 
 
 	  }
@@ -168,7 +172,8 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  //signal processing here
-		  filter(spectrum);
+		  //filter(spectrum);
+
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;

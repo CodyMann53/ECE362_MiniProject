@@ -15,6 +15,9 @@ struct color{
 	char blue;
 }color;
 
+#define LEDS 2
+#define BYTES LEDS*3
+
 /* FUNCTION DECLARATIONS */
 
 /* Updates the LED strip. Data parameter is an array of colors
@@ -35,5 +38,11 @@ void setRed (struct color* colors, int position, int percent);
 
 /* sets a certain position in the colors array to green with percent brightness. */
 void setGreen (struct color* colors, int position, int percent);
+
+/* Sets all of the LEDS green */
+void allGreen (struct color * colors, int percent);
+
+/* sets all of the LEDS red */
+void allRed (struct color * colors, int percent);
 
 #endif /* LEDFUNCTIONS_H_ */

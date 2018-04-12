@@ -26,6 +26,8 @@ Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o: \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_i2c_ex.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h \
+ C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h \
+ C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim_ex.h
 
@@ -80,6 +82,10 @@ C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_H
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr.h:
 
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_pwr_ex.h:
+
+C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h:
+
+C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi_ex.h:
 
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_tim.h:
 

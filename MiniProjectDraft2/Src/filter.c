@@ -9,6 +9,7 @@
 #include "tim.h"
 #include "interrupts.h"
 #include "filter.h"
+#include "adc.h"
 
 void filter(int * spectrum){
 
@@ -16,7 +17,7 @@ void filter(int * spectrum){
 	reset(1);
 
 	//delay for 1 us
-	delay_us(2);
+	delay_us(3);
 
 	//set reset low
 	reset(0);
@@ -31,10 +32,19 @@ void filter(int * spectrum){
 		strobe(0);
 
 		//delay for 40 us to allow DC output to settle
-		delay_us(40);
+		delay_us(45);
 
-		//read in DC value
-	    //spectrum[i] = DCread()
+		//start ADC conversion
+		HAL_ADC_Start(&hadc);
+
+		//wait for ADC conversion
+		HAL_ADC_PollForConversion(&hadc,0);
+
+		//retrieve  converted value
+	    spectrum[i] = HAL_ADC_GetValue(&hadc);
+
+	    // stop ADC conversion
+	    HAL_ADC_Start(&hadc);
 
 		//set strobe high
 		strobe(1);
