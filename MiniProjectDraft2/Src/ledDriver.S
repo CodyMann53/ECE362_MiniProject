@@ -62,9 +62,9 @@ ledStripWrite:
 		rev r7, r7
 		ldr r5, =BRR			//load r5 with the address of the BRR for the next time the GPIO is toggled
 		adds r5, r5, #0			/*used as a nop*/
-		adds r5, r5, #0			/*used as a nop*/
-		adds r5, r5, #0			/*used as a nop*/
-		adds r5, r5, #0			/*used as a nop*/
+		//adds r5, r5, #0			/*used as a nop*/
+		//adds r5, r5, #0			/*used as a nop*/
+		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/

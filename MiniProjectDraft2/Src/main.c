@@ -119,11 +119,11 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
+
   /* USER CODE BEGIN 2 */
 
   /* start TIM2 and TIM3 */
   HAL_TIM_Base_Start_IT(&htim3);
-
 
   /* LCD initializations */
   delay_ms(100);
@@ -136,14 +136,11 @@ int main(void)
 
   /* local variables */
 
-  // led array
-  struct color leds[LEDS];
+  // intitialize led array
+  struct color leds [ROWS][COLS];
 
+  /* spectrum array */
   int spectrum[7];
-
-  /* setting the two LEDS to all red */
-  setRed(leds, 0, 50);
-  setRed(leds, 1, 50);
 
   /* USER CODE END 2 */
 
@@ -152,46 +149,63 @@ int main(void)
   while (1)
   {
 	  /* MODE 1 */
+
+	  //update display
 	  backspace();
 	  transmitDisplay("1");
+
+	  //mode 1 event loop
 	  while(userBtnFlag == 0){
 
 		  //update the filter values
 		  filter(spectrum);
 
 		  //update leds
-		  modeOne(leds, spectrum);
+		  mode1( leds, spectrum);
 
 		  // write the new led data
-		  ledStripWrite(leds, BYTES);
+		  ledStripWrite( leds, BYTES);
 
 		  //wait for led write to complete
-		  delay_ms(3);
+		  delay_ms(5);
 
 	  }
+
 	  // reset user button flag
 	  userBtnFlag = 0;
 
 	  /* MODE 2 */
+
+	  //update display
 	  backspace();
 	  transmitDisplay("2");
+
+	  //mode 2 event loop
 	  while (userBtnFlag == 0){
 
 		  //signal processing here
-		  //filter(spectrum);
+		  allRed(leds, BRIGHTNESS);
+
+		  ledStripWrite(leds, BYTES);
+		  delay_ms(5);
 
 	  }
+
 	  //reset user button flag
 	  userBtnFlag = 0;
 
 	  /* MODE 3 */
+
+	  //update display
 	  backspace();
 	  transmitDisplay("3");
+
+	  //mode 3 event loop
 	  while (userBtnFlag == 0){
 
 		  // signal processing code here
-		  filter(spectrum);
 	  }
+
 	  //reset user button flag
 	  userBtnFlag = 0;
 

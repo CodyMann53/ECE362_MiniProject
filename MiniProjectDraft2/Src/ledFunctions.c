@@ -10,107 +10,124 @@
 
 /* FUNCTION DEFINITIONS */
 
-void setWhite (struct color* colors, int position, int percent)
+void setWhite (struct color colors[ROWS][COLS], int row, int col, int percent)
 {
-		colors[position].green = 255*percent/100;
-		colors[position].red = 255*percent/100;
-		colors[position].blue = 255*percent/100;
+		colors[row][col].green = 255*percent/100;
+		colors[row][col].red = 255*percent/100;
+		colors[row][col].blue = 255*percent/100;
 
 	return;
 }
 
-void setBlack (struct color* colors, int position)
+void setOff (struct color colors[ROWS][COLS], int row, int col)
 {
-		colors[position].green = 0;
-		colors[position].red = 0;
-		colors[position].blue = 0;
+		colors[row][col].green = 0;
+		colors[row][col].red = 0;
+		colors[row][col].blue = 0;
 
 	return;
 }
 
-void setBlue (struct color* colors, int position, int percent)
+void setBlue (struct color colors[ROWS][COLS], int row, int col, int percent)
 {
-		colors[position].green = 0;
-		colors[position].red = 0;
-		colors[position].blue = 255*percent/100;
+		colors[row][col].green = 0;
+		colors[row][col].red = 0;
+		colors[row][col].blue = 255*percent/100;
 
 	return;
 }
 
-void setRed (struct color* colors, int position, int percent)
+void setRed (struct color colors[ROWS][COLS], int row, int col, int percent)
 {
-		colors[position].green = 0;
-		colors[position].red = 255*percent/100;
-		colors[position].blue = 0;
+		colors[row][col].green = 0;
+		colors[row][col].red = 255*percent/100;
+		colors[row][col].blue = 0;
 
 	return;
 }
 
-void setGreen (struct color* colors, int position, int percent)
+void setGreen (struct color colors[ROWS][COLS], int row, int col, int percent)
 {
-		colors[position].green = 255*percent/100;
-		colors[position].red = 0;
-		colors[position].blue = 0;
+		colors[row][col].green = 255*percent/100;
+		colors[row][col].red = 0;
+		colors[row][col].blue = 0;
 
 	return;
 }
 
-void allGreen (struct color * colors, int percent){
+void allGreen (struct color colors[ROWS][COLS], int percent){
 
-	for (int x = 0; x < LEDS; x++){
-		setGreen(colors, x, percent);
+	for (int row = 0; row < ROWS; row++){
+		for( int col = 0; col < COLS; col++){
+			setGreen(colors, row, col, percent);
+		}
 	}
 }
 
-void allRed (struct color * colors, int percent){
+void allRed (struct color colors[ROWS][COLS], int percent){
 
-	for (int x = 0; x < LEDS; x++){
-		setRed(colors, x, percent);
+	for (int row = 0; row < ROWS; row++){
+		for( int col = 0; col < COLS; col++){
+			setRed(colors, row, col, percent);
+		}
 	}
 }
 
-void allWhite(struct color * colors, int percent){
+void allBlue (struct color colors[ROWS][COLS], int percent){
 
-	for (int x = 0; x < LEDS; x++){
-		setWhite(colors, x, percent);
+	for (int row = 0; row < ROWS; row++){
+		for( int col = 0; col < COLS; col++){
+			setBlue(colors, row, col, percent);
+		}
 	}
 }
 
-void setManual (struct color * colors, char colorRed, char colorGreen, char colorBlue, int position, int percent){
+void allWhite (struct color colors[ROWS][COLS], int percent){
 
-	colors[position].green = colorGreen * percent/ 100;
-	colors[position].red = colorRed * percent / 100 ;
-	colors[position].blue = colorBlue * percent / 100;
-
-
-}
-
-void allManualColor(struct color * colors, char colorRed, char colorGreen, char colorBlue, int percent){
-
-	for (int x = 0; x < LEDS; x++){
-		setManual(colors, colorRed, colorGreen, colorBlue, x, percent);
+	for (int row = 0; row < ROWS; row++){
+		for( int col = 0; col < COLS; col++){
+			setWhite(colors, row, col, percent);
+		}
 	}
 }
 
-void modeOne(struct color * colors, int * spectrum){
+void allOff (struct color colors[ROWS][COLS]){
 
-	if ( spectrum[0] > 100){
+	for (int row = 0; row < ROWS; row++){
+		for( int col = 0; col < COLS; col++){
+			setOff(colors, row, col);
+		}
+	}
+}
+
+void mode1(struct color colors[ROWS][COLS], int * spectrum){
+
+	if ( (spectrum[0] > 100) || (spectrum[1] > 100)){
 
 		if (spectrum[4] > 100){
-			allRed(colors, 100);
+			allRed(colors, BRIGHTNESS);
 		}
 		else if ( spectrum[5] > 100){
-			allGreen(colors, 100);
+			allGreen(colors, BRIGHTNESS);
 		}
 		else{
-			allWhite(colors, 100);
+			allBlue(colors, BRIGHTNESS);
 		}
 	}
 	else{
-		allRed(colors, 0);
+		allOff(colors);
 	}
+}
+
+void SpectrumAnalyzer(struct color colors[ROWS][COLS]){
+
+
+
+
+
 
 }
+
 
 
 
