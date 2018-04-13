@@ -92,6 +92,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   * @retval None
   */
 int main(void)
+
 {
   /* USER CODE BEGIN 1 */
 
@@ -155,12 +156,17 @@ int main(void)
 	  transmitDisplay("1");
 	  while(userBtnFlag == 0){
 
-		  // signal processing here
+		  //update the filter values
 		  filter(spectrum);
-		  allRed(leds, spectrum[0]/42);
-		  ledStripWrite(leds, BYTES);
-		  delay_ms(200);
 
+		  //update leds
+		  modeOne(leds, spectrum);
+
+		  // write the new led data
+		  ledStripWrite(leds, BYTES);
+
+		  //wait for led write to complete
+		  delay_ms(3);
 
 	  }
 	  // reset user button flag

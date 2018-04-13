@@ -1,4 +1,6 @@
 #MicroXplorer Configuration settings - do not modify
+ADC.IPParameters=Resolution
+ADC.Resolution=ADC_RESOLUTION_8B
 File.Version=6
 KeepUserPlacement=true
 Mcu.Family=STM32F0
@@ -87,7 +89,7 @@ PCC.Series=STM32F0
 PCC.Temperature=25
 PCC.Vdd=3.3
 PinOutPanel.RotationAngle=0
-ProjectManager.AskForMigrate=true
+ProjectManager.AskForMigrate=false
 ProjectManager.BackupPrevious=false
 ProjectManager.CompilerOptimize=3
 ProjectManager.ComputerToolchain=false

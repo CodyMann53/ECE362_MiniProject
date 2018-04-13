@@ -17,7 +17,7 @@ void filter(int * spectrum){
 	reset(1);
 
 	//delay for 1 us
-	delay_us(3);
+	delay_us(1);
 
 	//set reset low
 	reset(0);
@@ -32,7 +32,7 @@ void filter(int * spectrum){
 		strobe(0);
 
 		//delay for 40 us to allow DC output to settle
-		delay_us(45);
+		delay_us(36);
 
 		//start ADC conversion
 		HAL_ADC_Start(&hadc);
@@ -50,7 +50,7 @@ void filter(int * spectrum){
 		strobe(1);
 
 		//delay 35 us to satisfy timing constraints
-		delay_us(35);
+		delay_us(36);
 
 	}
 }

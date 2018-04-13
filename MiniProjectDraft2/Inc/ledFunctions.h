@@ -15,7 +15,7 @@ struct color{
 	char blue;
 }color;
 
-#define LEDS 2
+#define LEDS 84
 #define BYTES LEDS*3
 
 /* FUNCTION DECLARATIONS */
@@ -44,5 +44,13 @@ void allGreen (struct color * colors, int percent);
 
 /* sets all of the LEDS red */
 void allRed (struct color * colors, int percent);
+
+void allWhite(struct color * colors, int percent);
+
+void setManual (struct color * colors, char colorRed, char colorGreen, char colorBlue, int position, int percent);
+
+void allManualColor(struct color * colors, char colorRed, char colorGreen, char colorBlue, int percent);
+
+void modeOne(struct color * colors, int * spectrum);
 
 #endif /* LEDFUNCTIONS_H_ */
