@@ -41,7 +41,7 @@
 #include "tim.h"
 
 /* USER CODE BEGIN 0 */
-void delay(int msValue){
+void delay_ms(int msValue){
 
 	//reset ms value to 0
 	ms = 0;
@@ -58,6 +58,21 @@ void delay(int msValue){
 	return;
 
 }
+
+void delay_us(int usValue){
+
+	// setting us counter to 0
+	int us = 0;
+
+	// there are 48 clock cycles per us, so take usValue times 48
+	usValue = usValue * 10;
+
+	// loop for us delay
+	while (us < usValue){
+		us = us + 1;
+	}
+}
+
 
 /* USER CODE END 0 */
 

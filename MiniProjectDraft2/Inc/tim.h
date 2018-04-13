@@ -56,8 +56,11 @@ extern TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN Private defines */
 
-/* Uses TIM2 as a ms delay counter */
-void delay(int msValue);
+/* Uses TIM3 as a ms delay counter */
+void delay_ms(int msValue);
+
+/*Uses TIM2 as a rough estimate of delaying us */
+void delay_us(int usValue);
 
 /* USER CODE END Private defines */
 

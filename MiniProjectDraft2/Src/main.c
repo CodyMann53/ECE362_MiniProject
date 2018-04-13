@@ -38,6 +38,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f0xx_hal.h"
+#include "adc.h"
 #include "spi.h"
 #include "tim.h"
 #include "gpio.h"
@@ -47,6 +48,8 @@
 #include "globalVariables.h"
 #include "displayDriver.h"
 #include "interrupts.h"
+#include "filter.h"
+
 
 /* USER CODE END Includes */
 
@@ -89,6 +92,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   * @retval None
   */
 int main(void)
+
 {
   /* USER CODE BEGIN 1 */
 
@@ -114,13 +118,15 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_TIM3_Init();
+  MX_ADC_Init();
   /* USER CODE BEGIN 2 */
 
-  /* start the debouncing timer */
+  /* start TIM2 and TIM3 */
   HAL_TIM_Base_Start_IT(&htim3);
 
+
   /* LCD initializations */
-  delay(100);
+  delay_ms(100);
   displayOn();
   displayBrightness(2);
   displayClear();
@@ -131,7 +137,9 @@ int main(void)
   /* local variables */
 
   // led array
-  struct color leds[2];
+  struct color leds[LEDS];
+
+  int spectrum[7];
 
   /* setting the two LEDS to all red */
   setRed(leds, 0, 50);
@@ -143,22 +151,22 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-
 	  /* MODE 1 */
 	  backspace();
 	  transmitDisplay("1");
 	  while(userBtnFlag == 0){
 
-		  // signal processing here
-		  delay(100);
-		  setRed(leds, 0, 50);
-		  setRed(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
+		  //update the filter values
+		  filter(spectrum);
 
+		  //update leds
+		  modeOne(leds, spectrum);
+
+		  // write the new led data
+		  ledStripWrite(leds, BYTES);
+
+		  //wait for led write to complete
+		  delay_ms(3);
 
 	  }
 	  // reset user button flag
@@ -170,14 +178,7 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  //signal processing here
-		  delay(100);
-		  setGreen(leds, 0, 50);
-		  setGreen(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
+		  //filter(spectrum);
 
 	  }
 	  //reset user button flag
@@ -189,15 +190,7 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  // signal processing code here
-		  delay(100);
-		  setBlue(leds, 0, 50);
-		  setBlue(leds, 1, 50);
-		  ledStripWrite(leds, 6);
-		  delay(100);
-		  setBlack(leds, 0);
-		  setBlack(leds, 1);
-		  ledStripWrite(leds, 6);
-
+		  filter(spectrum);
 	  }
 	  //reset user button flag
 	  userBtnFlag = 0;
@@ -223,9 +216,11 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks 
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
+  RCC_OscInitStruct.HSI14CalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;

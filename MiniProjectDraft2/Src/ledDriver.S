@@ -65,7 +65,7 @@ ledStripWrite:
 		adds r5, r5, #0			/*used as a nop*/
 		adds r5, r5, #0			/*used as a nop*/
 		adds r5, r5, #0			/*used as a nop*/
-		adds r5, r5, #0			/*used as a nop*/
+		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/
 		//adds r5, r5, #0			/*used as a nop*/

@@ -4,7 +4,9 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Src/adc.c \
 ../Src/displayDriver.c \
+../Src/filter.c \
 ../Src/gpio.c \
 ../Src/interrupts.c \
 ../Src/ledFunctions.c \
@@ -19,7 +21,9 @@ S_UPPER_SRCS += \
 ../Src/ledDriver.S 
 
 OBJS += \
+./Src/adc.o \
 ./Src/displayDriver.o \
+./Src/filter.o \
 ./Src/gpio.o \
 ./Src/interrupts.o \
 ./Src/ledDriver.o \
@@ -35,7 +39,9 @@ S_UPPER_DEPS += \
 ./Src/ledDriver.d 
 
 C_DEPS += \
+./Src/adc.d \
 ./Src/displayDriver.d \
+./Src/filter.d \
 ./Src/gpio.d \
 ./Src/interrupts.d \
 ./Src/ledFunctions.d \
