@@ -92,7 +92,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   * @retval None
   */
 int main(void)
-
 {
   /* USER CODE BEGIN 1 */
 
@@ -119,7 +118,6 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
-
   /* USER CODE BEGIN 2 */
 
   /* start TIM2 and TIM3 */
@@ -183,27 +181,40 @@ int main(void)
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
 
-		  //signal processing here
 		  allRed(leds, BRIGHTNESS);
 
 		  ledStripWrite(leds, BYTES);
-		  delay_ms(5);
+		  delay_ms(500);
 
 	  }
 
 	  //reset user button flag
 	  userBtnFlag = 0;
 
-	  /* MODE 3 */
+	  /* SPECTRUM ANAYLYZER*/
 
 	  //update display
 	  backspace();
 	  transmitDisplay("3");
 
+	  // reset all of the leds all
+	  allOff(leds);
+
 	  //mode 3 event loop
 	  while (userBtnFlag == 0){
 
-		  // signal processing code here
+		  //update filter
+		  filter(spectrum);
+
+		  // update led array based on spectrum
+		  spectrumAnalyzer(leds, spectrum);
+
+		  // write the new led array
+		  ledStripWrite(leds, BYTES);
+
+		  // allow time for leds to be updated
+		  delay_ms(5);
+
 	  }
 
 	  //reset user button flag
@@ -237,7 +248,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSI14CalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -252,7 +263,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }

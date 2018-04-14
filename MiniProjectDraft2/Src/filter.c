@@ -22,7 +22,7 @@ void filter(int * spectrum){
 	//set reset low
 	reset(0);
 
-	// delay for 72 us
+	// delay for 72 us ???
 	delay_us(72);
 
 	// loop through all of the bands and read their dc values
@@ -44,7 +44,7 @@ void filter(int * spectrum){
 	    spectrum[i] = HAL_ADC_GetValue(&hadc);
 
 	    // stop ADC conversion
-	    HAL_ADC_Start(&hadc);
+	    HAL_ADC_Stop(&hadc);
 
 		//set strobe high
 		strobe(1);
