@@ -63,6 +63,11 @@
 	volatile int userBtnPrevious = 0;
 	volatile int msCountFlag = 0;
 
+	/* initialize colors */
+	 int red[3] = {255, 0, 0};
+	 int green[3] = {0, 255, 0};
+	 int blue[3] = {0, 0, 255};
+	 int off[3] = {0, 0, 0};
 
 /* USER CODE END PV */
 
@@ -92,7 +97,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
   * @retval None
   */
 int main(void)
-
 {
   /* USER CODE BEGIN 1 */
 
@@ -119,7 +123,6 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
-
   /* USER CODE BEGIN 2 */
 
   /* start TIM2 and TIM3 */
@@ -164,7 +167,7 @@ int main(void)
 		  mode1( leds, spectrum);
 
 		  // write the new led data
-		  ledStripWrite( leds, BYTES);
+		  ledStripWriteLowSpeed( leds, BYTES);
 
 		  //wait for led write to complete
 		  delay_ms(5);
@@ -183,18 +186,16 @@ int main(void)
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
 
-		  //signal processing here
-		  allRed(leds, BRIGHTNESS);
-
-		  ledStripWrite(leds, BYTES);
-		  delay_ms(5);
+		  allColor(leds, BRIGHTNESS, red);
+		  ledStripWriteLowSpeed(leds, BYTES);
+		  delay_ms(1000);
 
 	  }
 
 	  //reset user button flag
 	  userBtnFlag = 0;
 
-	  /* MODE 3 */
+	  /* SPECTRUM ANAYLYZER*/
 
 	  //update display
 	  backspace();
@@ -203,7 +204,18 @@ int main(void)
 	  //mode 3 event loop
 	  while (userBtnFlag == 0){
 
-		  // signal processing code here
+		  //update filter
+		  filter(spectrum);
+
+		  // update led array based on spectrum
+		  spectrumAnalyzer(leds, spectrum);
+
+		  // write the new led array
+		  ledStripWriteLowSpeed(leds, BYTES);
+
+		  // allow time for leds to be updated
+		  delay_ms(20);
+
 	  }
 
 	  //reset user button flag

@@ -65,7 +65,7 @@ void delay_us(int usValue){
 	int us = 0;
 
 	// there are 48 clock cycles per us, so take usValue times 48
-	usValue = usValue * 10;
+	usValue = usValue * 13;
 
 	// loop for us delay
 	while (us < usValue){

@@ -18,7 +18,7 @@ C_SRCS += \
 ../Src/tim.c 
 
 S_UPPER_SRCS += \
-../Src/ledDriver.S 
+../Src/ledDriverLowSpeed.S 
 
 OBJS += \
 ./Src/adc.o \
@@ -26,7 +26,7 @@ OBJS += \
 ./Src/filter.o \
 ./Src/gpio.o \
 ./Src/interrupts.o \
-./Src/ledDriver.o \
+./Src/ledDriverLowSpeed.o \
 ./Src/ledFunctions.o \
 ./Src/main.o \
 ./Src/spi.o \
@@ -36,7 +36,7 @@ OBJS += \
 ./Src/tim.o 
 
 S_UPPER_DEPS += \
-./Src/ledDriver.d 
+./Src/ledDriverLowSpeed.d 
 
 C_DEPS += \
 ./Src/adc.d \
