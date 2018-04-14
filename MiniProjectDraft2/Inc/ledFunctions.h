@@ -15,42 +15,51 @@ struct color{
 	char blue;
 }color;
 
-#define LEDS 84
-#define BYTES LEDS*3
+/* Number of leds being written to. */
+#define ROWS 12
+#define COLS 12
+
+#define BRIGHTNESS 100
+
+/* Total number of bytes that are sent to update led strip */
+#define BYTES ROWS*COLS*3
 
 /* FUNCTION DECLARATIONS */
 
 /* Updates the LED strip. Data parameter is an array of colors
 and numBytes is the number of bytes that needs to be written to the LED strip with 3 bytes per LED. */
-void ledStripWrite(struct color* data, int numBytes);
+void ledStripWrite(struct color colors[ROWS][COLS], int numBytes);
 
-/* sets a certain position in the colors array to white with percent brightness. */
-void setWhite (struct color* colors, int position, int percent);
+/* Sets a certain position in the colors array to white with percent brightness. */
+void setWhite (struct color colors[ROWS][COLS], int row, int col, int percent);
 
-/* sets a certain position in the colors array to off.*/
-void setBlack (struct color* colors, int position);
+/* Sets a certain position in the colors array to off.*/
+void setOff (struct color colors[ROWS][COLS], int row, int col);
 
-/* sets a certain position in the colors array to blue with percent brightness. */
-void setBlue (struct color* colors, int position, int percent);
+/* Sets a certain position in the colors array to blue with percent brightness. */
+void setBlue (struct color colors[ROWS][COLS], int row, int col, int percent);
 
-/* sets a certain position in the colors array to red with percent brightness. */
-void setRed (struct color* colors, int position, int percent);
+/* Sets a certain position in the colors array to red with percent brightness. */
+void setRed (struct color colors[ROWS][COLS], int row, int col, int percent);
 
-/* sets a certain position in the colors array to green with percent brightness. */
-void setGreen (struct color* colors, int position, int percent);
+/* Sets a certain position in the colors array to green with percent brightness. */
+void setGreen (struct color colors[ROWS][COLS], int row, int col, int percent);
 
-/* Sets all of the LEDS green */
-void allGreen (struct color * colors, int percent);
+/* Sets all of the LEDS green. */
+void allGreen (struct color colors[ROWS][COLS], int percent);
 
-/* sets all of the LEDS red */
-void allRed (struct color * colors, int percent);
+/* Sets all of the LEDS red. */
+void allRed (struct color colors[ROWS][COLS], int percent);
 
-void allWhite(struct color * colors, int percent);
+/* Sets all of the leds white. */
+void allWhite(struct color colors[ROWS][COLS], int percent);
 
-void setManual (struct color * colors, char colorRed, char colorGreen, char colorBlue, int position, int percent);
+/* Sets all of the leds blue. */
+void allBlue(struct color colors[ROWS][COLS], int percent);
 
-void allManualColor(struct color * colors, char colorRed, char colorGreen, char colorBlue, int percent);
+void allOff(struct color colors[ROWS][COLS]);
 
-void modeOne(struct color * colors, int * spectrum);
+/* Mode one of how leds get updated based on audio input signal */
+void mode1(struct color colors[ROWS][COLS], int * spectrum);
 
 #endif /* LEDFUNCTIONS_H_ */
