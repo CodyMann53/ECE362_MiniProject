@@ -32,6 +32,7 @@ struct color{
 
 // brightness value for all of the lights
 #define BRIGHTNESS 50
+#define MAX_BRIGHTNESS 100
 
 // Total number of bytes that are sent to update led strip */
 #define BYTES ROWS*COLS*3
@@ -53,7 +54,12 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col);
 /* mode for updating the led with a spectrum analyzer */
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum);
 
+<<<<<<< HEAD
 /* writes new led matrix color values */
+=======
+void twinkle(struct color leds[ROWS][COLS]);
+
+>>>>>>> refs/remotes/origin/spectrumAnalyzer
 void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
 
 /* reorders the matrix rows that are out of place */
