@@ -11,6 +11,34 @@
 
 /* FUNCTION DEFINITIONS */
 
+void writeLeds(struct color leds[ROWS][COLS]){
+
+	// reorder out of place rows
+	ledMatrixReorder(leds);
+
+	//write to the leds
+	ledMatrixReorder(leds);
+}
+
+void ledMatrixReorder(struct color leds[ROWS][COLS]){
+
+	struct color ledsTmp[COLS];
+
+	// loop through every other row.
+	for( int row = 1; row < ROWS; row+= 2){
+
+		// flip the current row into a temporary array
+		for ( int col = 0; col < COLS; col++){
+			ledsTmp[col] = leds[row][COLS-col-1];
+		}
+
+		// update the the row that is out of order using the flipped array
+		for (int col = 0; col < COLS; col++){
+			leds[row][col] = ledsTmp[col];
+		}
+	}
+}
+
 void setColor (struct color leds[ROWS][COLS], int row, int col, int percent, int * color)
 {
 		leds[row][col].red = color[0]*percent/100;

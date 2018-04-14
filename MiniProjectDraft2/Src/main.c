@@ -139,7 +139,7 @@ int main(void)
 
   /* local variables */
 
-  // intitialize led array
+  // initialize led array
   struct color leds [ROWS][COLS];
 
   /* spectrum array */
@@ -166,8 +166,8 @@ int main(void)
 		  //update leds
 		  mode1( leds, spectrum);
 
-		  // write the new led data
-		  ledStripWriteLowSpeed( leds, BYTES);
+		  // write to the led matrix board
+		  writeLeds(leds);
 
 		  //wait for led write to complete
 		  delay_ms(5);
@@ -187,6 +187,10 @@ int main(void)
 	  while (userBtnFlag == 0){
 
 		  allColor(leds, BRIGHTNESS, red);
+
+		  // reorder matrix for writing
+		  ledMatrixReorder(leds);
+
 		  ledStripWriteLowSpeed(leds, BYTES);
 		  delay_ms(1000);
 
@@ -209,6 +213,9 @@ int main(void)
 
 		  // update led array based on spectrum
 		  spectrumAnalyzer(leds, spectrum);
+
+		  // reorder matrix for writing
+		  ledMatrixReorder(leds);
 
 		  // write the new led array
 		  ledStripWriteLowSpeed(leds, BYTES);
