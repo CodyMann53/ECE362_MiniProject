@@ -21,7 +21,7 @@
 "Src/filter.o"
 "Src/gpio.o"
 "Src/interrupts.o"
-"Src/ledDriver.o"
+"Src/ledDriverLowSpeed.o"
 "Src/ledFunctions.o"
 "Src/main.o"
 "Src/spi.o"

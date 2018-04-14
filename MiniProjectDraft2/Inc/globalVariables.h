@@ -8,8 +8,6 @@
 #ifndef GLOBALVARIABLES_H_
 #define GLOBALVARIABLES_H_
 
-/*INCLUDES */
-#include "ledFunctions.h"
 
 /* used to keep track of millesonds for delay function */
  extern volatile int ms;
@@ -25,5 +23,10 @@
 
  /* Tells timer3 interrupt when to update ms variable */
  extern volatile int msCountFlag;
+
+ extern int red[3];
+ extern int green[3];
+ extern int blue[3];
+ extern int off[3];
 
 #endif /* GLOBALVARIABLES_H_ */

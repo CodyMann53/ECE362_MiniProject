@@ -63,6 +63,11 @@
 	volatile int userBtnPrevious = 0;
 	volatile int msCountFlag = 0;
 
+	/* initialize colors */
+	 int red[3] = {255, 0, 0};
+	 int green[3] = {0, 255, 0};
+	 int blue[3] = {0, 0, 255};
+	 int off[3] = {0, 0, 0};
 
 /* USER CODE END PV */
 
@@ -162,7 +167,7 @@ int main(void)
 		  mode1( leds, spectrum);
 
 		  // write the new led data
-		  ledStripWrite( leds, BYTES);
+		  ledStripWriteLowSpeed( leds, BYTES);
 
 		  //wait for led write to complete
 		  delay_ms(5);
@@ -181,10 +186,9 @@ int main(void)
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
 
-		  allRed(leds, BRIGHTNESS);
-
-		  ledStripWrite(leds, BYTES);
-		  delay_ms(500);
+		  allColor(leds, BRIGHTNESS, red);
+		  ledStripWriteLowSpeed(leds, BYTES);
+		  delay_ms(1000);
 
 	  }
 
@@ -197,9 +201,6 @@ int main(void)
 	  backspace();
 	  transmitDisplay("3");
 
-	  // reset all of the leds all
-	  allOff(leds);
-
 	  //mode 3 event loop
 	  while (userBtnFlag == 0){
 
@@ -210,10 +211,10 @@ int main(void)
 		  spectrumAnalyzer(leds, spectrum);
 
 		  // write the new led array
-		  ledStripWrite(leds, BYTES);
+		  ledStripWriteLowSpeed(leds, BYTES);
 
 		  // allow time for leds to be updated
-		  delay_ms(5);
+		  delay_ms(20);
 
 	  }
 
@@ -248,7 +249,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSI14CalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
@@ -263,7 +264,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }

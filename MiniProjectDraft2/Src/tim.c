@@ -65,7 +65,7 @@ void delay_us(int usValue){
 	int us = 0;
 
 	// there are 48 clock cycles per us, so take usValue times 48
-	usValue = usValue * 10;
+	usValue = usValue * 13;
 
 	// loop for us delay
 	while (us < usValue){
@@ -85,7 +85,7 @@ void MX_TIM3_Init(void)
   TIM_MasterConfigTypeDef sMasterConfig;
 
   htim3.Instance = TIM3;
-  htim3.Init.Prescaler = 23999;
+  htim3.Init.Prescaler = 47999;
   htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim3.Init.Period = 4;
   htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
