@@ -185,19 +185,6 @@ int main(void)
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
-<<<<<<< HEAD
-
-		  allColor(leds, BRIGHTNESS, red);
-
-		  // reorder matrix for writing
-		  ledMatrixReorder(leds);
-
-=======
-	          //randomize LED display
-		  twinkle(leds);
->>>>>>> refs/remotes/origin/spectrumAnalyzer
-		  ledStripWriteLowSpeed(leds, BYTES);
-		  delay_ms(1000);
 
 	  }
 
