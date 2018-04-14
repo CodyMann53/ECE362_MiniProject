@@ -30,6 +30,7 @@ struct color{
 #define END (START + 7)
 
 #define BRIGHTNESS 50
+#define MAX_BRIGHTNESS 100
 
 /* Total number of bytes that are sent to update led strip */
 #define BYTES ROWS*COLS*3
@@ -45,6 +46,8 @@ void mode1(struct color leds[ROWS][COLS], int * spectrum);
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col);
 
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum);
+
+void twinkle(struct color leds[ROWS][COLS]);
 
 void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
 
