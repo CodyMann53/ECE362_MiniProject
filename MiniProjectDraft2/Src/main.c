@@ -49,6 +49,7 @@
 #include "displayDriver.h"
 #include "interrupts.h"
 #include "filter.h"
+#include "stdlib.h"
 
 
 /* USER CODE END Includes */
@@ -185,6 +186,10 @@ int main(void)
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
+		  //randomize LED display
+		  twinkle(leds);
+		  ledStripWriteLowSpeed(leds, BYTES);
+		  delay_ms(1000);
 
 	  }
 

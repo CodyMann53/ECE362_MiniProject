@@ -62,4 +62,6 @@ void ledMatrixReorder(struct color leds[ROWS][COLS]);
 /* used to update led matrix and is the functio that should be used within main while loop after filtering is done */
 void writeLeds(struct color leds[ROWS][COLS]);
 
+void twinkle(struct color leds[ROWS][COLS]);
+
 #endif /* LEDFUNCTIONS_H_ */
