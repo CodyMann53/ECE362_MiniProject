@@ -32,7 +32,7 @@ void transmitDisplay(char * string){
 		HAL_SPI_Transmit (&hspi1, (uint8_t *) &string[x], 1, 1);
 
 		// delay 10ms
-		delay_ms(2);
+		delay_ms(10);
 	}
 }
 

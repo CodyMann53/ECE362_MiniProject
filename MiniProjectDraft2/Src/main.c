@@ -186,9 +186,14 @@ int main(void)
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
+
 		  //randomize LED display
 		  twinkle(leds);
-		  ledStripWriteLowSpeed(leds, BYTES);
+
+		  // write to the leds
+		  writeLeds(leds);
+
+		  // delay
 		  delay_ms(1000);
 
 	  }
