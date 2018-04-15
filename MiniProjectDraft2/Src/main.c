@@ -170,7 +170,7 @@ int main(void)
 		  writeLeds(leds);
 
 		  //wait for led write to complete
-		  delay_ms(5);
+		  delay_ms(3);
 
 	  }
 

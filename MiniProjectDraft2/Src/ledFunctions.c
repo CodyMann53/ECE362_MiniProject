@@ -17,7 +17,7 @@ void writeLeds(struct color leds[ROWS][COLS]){
 	ledMatrixReorder(leds);
 
 	//write to the leds
-	ledMatrixReorder(leds);
+	ledStripWriteLowSpeed(leds, BYTES);
 }
 
 void ledMatrixReorder(struct color leds[ROWS][COLS]){
@@ -167,73 +167,6 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 	}
 }
 
-void twinkle(struct color leds[ROWS][COLS])
-{
-  int fade = MAX_BRIGHTNESS;
-  int fadeFlag = 0;
-  int red = 255;
-  int rFlag = 0;
-  int green = 255;
-  int gFlag = 0;
-  int blue = 255;
-  int bFlag = 0;
-  int sub;
-  int val;
-  int start[3];
-  for(int row = 0; row < ROWS; row++){
-      for(int col = 0; col < COLS; col++){
-          //initializes the colors for each led
-          start[0] = red;
-          start[1] = green;
-          start[2] = blue;
-
-          setColor(leds, row, col, fade, start);
-
-          //varies the brightness for
-          if(fadeFlag != 1){
-             fade -= 5;
-          }
-          else{
-              fade += 5;
-          }
-          if(fade < 50){
-              fadeFlag = 1;
-          }
-          if(fade == 100)
-          {
-              fadeFlag = 0;
-          }
-
-          //creates a random value to be subtracted from red
-          sub = (rand() + 50)%(100+1);
-          red -= sub;
-
-          //keeps it in warm color range
-          if(red < 140){
-              red = 255;
-          }
-
-          //creates a random value to be subtracted from green
-          sub = (rand() + 50)%(100+1);
-          green -= sub;
-
-          //keeps it in warm color range
-          if(green < 140){
-              green = 255;
-          }
-
-          //creates a random value to be subtracted from blue
-          sub = (rand() + 50)%(100+1);
-          blue -= sub;
-
-          //keeps it in warm color range
-          if(blue < 140){
-              blue = 255;
-          }
-      }
-  }
-
-}
 
 
 

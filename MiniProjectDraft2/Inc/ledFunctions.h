@@ -54,12 +54,6 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col);
 /* mode for updating the led with a spectrum analyzer */
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum);
 
-<<<<<<< HEAD
-/* writes new led matrix color values */
-=======
-void twinkle(struct color leds[ROWS][COLS]);
-
->>>>>>> refs/remotes/origin/spectrumAnalyzer
 void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
 
 /* reorders the matrix rows that are out of place */
