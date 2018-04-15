@@ -19,6 +19,7 @@ struct color{
 #define ROWS 12
 #define COLS 12
 
+// thresh holds for spectrum analyzer
 #define THRESH1 25
 #define THRESH2 50
 #define THRESH3 75
@@ -29,26 +30,38 @@ struct color{
 #define START 3
 #define END (START + 7)
 
+// brightness value for all of the lights
 #define BRIGHTNESS 50
 #define MAX_BRIGHTNESS 100
 
-/* Total number of bytes that are sent to update led strip */
+// Total number of bytes that are sent to update led strip */
 #define BYTES ROWS*COLS*3
 
 /* FUNCTION DECLARATIONS */
 
+/* sets a particular led in the matrix to a desired color */
 void setColor (struct color leds[ROWS][COLS], int row, int col, int percent, int * color);
 
+/* sets all leds in the matrix to a particular color */
 void allColor (struct color leds[ROWS][COLS], int percent, int * color);
 
+/* mode1 for updating leds */
 void mode1(struct color leds[ROWS][COLS], int * spectrum);
 
+/* function for determining which colors get associated with each band */
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col);
 
+/* mode for updating the led with a spectrum analyzer */
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum);
 
-void twinkle(struct color leds[ROWS][COLS]);
-
 void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
+
+/* reorders the matrix rows that are out of place */
+void ledMatrixReorder(struct color leds[ROWS][COLS]);
+
+/* used to update led matrix and is the functio that should be used within main while loop after filtering is done */
+void writeLeds(struct color leds[ROWS][COLS]);
+
+void twinkle(struct color leds[ROWS][COLS]);
 
 #endif /* LEDFUNCTIONS_H_ */
