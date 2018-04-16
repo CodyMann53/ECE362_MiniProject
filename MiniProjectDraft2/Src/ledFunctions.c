@@ -77,51 +77,29 @@ void mode1(struct color leds[ROWS][COLS], int * spectrum){
 }
 
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
-	int color[3] = {0,0,0};
+
+	// loop through all of the rows that need to be set
 	for (int x = 0; x < row; x++){
-		if(col == START)
-		{
-			color[0] = 0;
-			color[1] = 0;
-			color[2] = 255;
+
+		// if else clause to determine which colors get associated with each frequency band
+		if( (col == 0) || (col == 1) ){
+			setColor(leds, x, col, BRIGHTNESS, red);
 		}
-		else if(col == START+1)
-		{
-			color[0] = 0;
-			color[1] = 255;
-			color[2] = 0;
+		else if( (col == 2) || (col==3) ){
+			setColor(leds, x, col, BRIGHTNESS, blue);
 		}
-		else if(col == START+2)
-		{
-			color[0] = 255;
-			color[1] = 0;
-			color[2] = 0;
+		else if( (col == 4) || (col==5) ){
+			setColor(leds, x, col, BRIGHTNESS, magenta);
 		}
-		else if(col == START+3)
-		{
-			color[0] = 255;
-			color[1] = 255;
-			color[2] = 255;
+		else if( (col == 6) || (col==7) ){
+			setColor(leds, x, col, BRIGHTNESS, green);
 		}
-		else if(col == START+4)
-		{
-			color[0] = 0;
-			color[1] = 255;
-			color[2] = 255;
+		else if( (col == 8) || (col==9) ){
+			setColor(leds, x, col, BRIGHTNESS, yellow);
 		}
-		else if(col == START+5)
-		{
-			color[0] = 255;
-			color[1] = 0;
-			color[2] = 255;
+		else if( (col == 10) || (col==11) ){
+			setColor(leds, x, col, BRIGHTNESS, teal);
 		}
-		else if(col == START+6)
-		{
-			color[0] = 125;
-			color[1] = 125;
-			color[2] = 125;
-		}
-		setColor(leds, x, col, BRIGHTNESS, color);
 	}
 }
 
@@ -130,34 +108,92 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 	//reset all of the leds to off
 	allColor(leds, BRIGHTNESS, off);
 
-	// start at highest frequency band
-	int x = 6;
+	// start at second to highest frequency band
+	int x = 5;
 
 	// cycle through all led array columns
-	for( int col = START; col < END; col++){
+	for( int col = 0; col < COLS; col+=2){
 
 		// go though all of the frequency bands (6-0)
 		if ( x >= 0){
+			if(spectrum[x] > THRESH11){ // threshold 11
 
-			if(spectrum[x] > THRESH6){
+				// set two columns corresponding to the particular band
+				// at the given threshold
+				spectrumColor(leds, 11, col);
+				spectrumColor(leds, 11, col + 1);
+			}
+			else if(spectrum[x] > THRESH10){// threshold 10
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
+				spectrumColor(leds, 10, col);
+				spectrumColor(leds, 10, col + 1);
+			}
+			else if(spectrum[x] > THRESH9){// threshold 9
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
+				spectrumColor(leds, 9, col);
+				spectrumColor(leds, 9, col + 1);
+			}
+			else if(spectrum[x] > THRESH8){// threshold 8
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
+				spectrumColor(leds, 8, col);
+				spectrumColor(leds, 8, col + 1);
+			}
+			else if(spectrum[x] > THRESH7){// threshold 7
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
+				spectrumColor(leds, 7, col);
+				spectrumColor(leds, 7, col + 1);
+			}
+			else if(spectrum[x] > THRESH6){// threshold 6
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 6, col);
+				spectrumColor(leds, 6, col + 1);
 			}
-			else if(spectrum[x] > THRESH5){
+			else if(spectrum[x] > THRESH5){// threshold 5
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 5, col);
+				spectrumColor(leds, 5, col + 1);
 			}
-			else if(spectrum[x] > THRESH4){
+			else if(spectrum[x] > THRESH4){// threshold 4
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 4, col);
+				spectrumColor(leds, 4, col + 1);
 			}
-			else if(spectrum[x] > THRESH3){
+			else if(spectrum[x] > THRESH3){// threshold 3
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 3, col);
+				spectrumColor(leds, 3, col + 1);
 			}
-			else if(spectrum[x] > THRESH2){
+			else if(spectrum[x] > THRESH2){// threshold 2
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 2, col);
+				spectrumColor(leds, 2, col + 1);
 			}
-			else if (spectrum[x] > THRESH1){
+			else if(spectrum[x] > THRESH1){// threshold 1
+
+				// set two columns corresponding to the particular band
+				// at the given threshold
 				spectrumColor(leds, 1, col);
+				spectrumColor(leds, 1, col + 1);
 			}
-			else{
+			else{// no threshold met so only light frist row
 				spectrumColor(leds, 0, col);
 			}
 		}
@@ -234,6 +270,3 @@ void twinkle(struct color leds[ROWS][COLS])
   }
 
 }
-
-
-

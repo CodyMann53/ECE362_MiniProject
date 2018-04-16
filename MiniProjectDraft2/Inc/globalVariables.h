@@ -27,6 +27,9 @@
  extern int red[3];
  extern int green[3];
  extern int blue[3];
+ extern int magenta[3];
+ extern int yellow[3];
+ extern int teal[3];
  extern int off[3];
 
 #endif /* GLOBALVARIABLES_H_ */

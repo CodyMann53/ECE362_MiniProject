@@ -64,11 +64,15 @@
 	volatile int userBtnPrevious = 0;
 	volatile int msCountFlag = 0;
 
-	/* initialize colors */
+	/* initialize colors  { red, green, blue} */
 	 int red[3] = {255, 0, 0};
 	 int green[3] = {0, 255, 0};
 	 int blue[3] = {0, 0, 255};
+	 int magenta[3] = {255,0,255};
+	 int yellow[3] = {255, 255, 0};
+	 int teal[3] = {0, 128, 128};
 	 int off[3] = {0, 0, 0};
+
 
 /* USER CODE END PV */
 

@@ -19,13 +19,21 @@ struct color{
 #define ROWS 12
 #define COLS 12
 
-// thresh holds for spectrum analyzer
-#define THRESH1 25
-#define THRESH2 50
-#define THRESH3 75
-#define THRESH4 100
-#define THRESH5 125
-#define THRESH6 150
+// thresholds for spectrum analyzer
+#define THRESH1 INCREMENT
+#define THRESH2 THRESH1 + INCREMENT
+#define THRESH3 THRESH2 + INCREMENT
+#define THRESH4 THRESH3 + INCREMENT
+#define THRESH5 THRESH4 + INCREMENT
+#define THRESH6 THRESH5 + INCREMENT
+#define THRESH7 THRESH6 + INCREMENT
+#define THRESH8 THRESH7 + INCREMENT
+#define THRESH9 THRESH8 + INCREMENT
+#define THRESH10 THRESH9 + INCREMENT
+#define THRESH11 THRESH10 + INCREMENT
+
+
+#define INCREMENT 10
 
 #define START 3
 #define END (START + 7)
