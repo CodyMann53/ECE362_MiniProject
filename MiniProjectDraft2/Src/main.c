@@ -216,11 +216,8 @@ int main(void)
 		  // update led array based on spectrum
 		  spectrumAnalyzer(leds, spectrum);
 
-		  // reorder matrix for writing
-		  ledMatrixReorder(leds);
-
-		  // write the new led array
-		  ledStripWriteLowSpeed(leds, BYTES);
+		  // write to the leds
+		  writeLeds(leds);
 
 		  // allow time for leds to be updated
 		  delay_ms(20);
