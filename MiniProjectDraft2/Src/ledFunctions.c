@@ -8,6 +8,7 @@
 /* INCLUDES */
 #include "ledFunctions.h"
 #include "globalVariables.h"
+#include "stm32f0xx_hal.h"
 
 /* FUNCTION DEFINITIONS */
 
@@ -16,8 +17,14 @@ void writeLeds(struct color leds[ROWS][COLS]){
 	// reorder out of place rows
 	ledMatrixReorder(leds);
 
+	// disable interrupts
+	__disable_irq();
+
 	//write to the leds
 	ledStripWriteLowSpeed(leds, BYTES);
+
+	//enable interrupts
+	__enable_irq();
 }
 
 void ledMatrixReorder(struct color leds[ROWS][COLS]){

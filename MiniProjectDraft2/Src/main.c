@@ -194,6 +194,7 @@ int main(void)
 		  // write to the leds
 		  writeLeds(leds);
 
+
 		  // delay
 		  delay_ms(1000);
 
@@ -214,11 +215,16 @@ int main(void)
 		  //update filter
 		  filter(spectrum);
 
+
 		  // update led array based on spectrum
 		  spectrumAnalyzer(leds, spectrum);
 
+		  HAL_TIM_Base_Stop_IT(&htim3);
+
 		  // write to the leds
 		  writeLeds(leds);
+
+		  HAL_TIM_Base_Start_IT(&htim3);
 
 		  // allow time for leds to be updated
 		  delay_ms(20);
