@@ -138,9 +138,6 @@ int main(void)
   displayOn();
   displayBrightness(2);
   displayClear();
-  cursorHome();
-  cursorPosition(5);
-  transmitDisplay("Mode 1");
 
   /* local variables */
 
@@ -159,8 +156,8 @@ int main(void)
 	  /* MODE 1 */
 
 	  //update display
-	  backspace();
-	  transmitDisplay("1");
+	  displayClear();
+	  transmitDisplay("Mode 1");
 
 	  //mode 1 event loop
 	  while(userBtnFlag == 0){
@@ -185,8 +182,8 @@ int main(void)
 	  /* MODE 2 */
 
 	  //update display
-	  backspace();
-	  transmitDisplay("2");
+	  displayClear();
+	  transmitDisplay("Mode 2");
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
@@ -208,8 +205,8 @@ int main(void)
 	  /* SPECTRUM ANAYLYZER*/
 
 	  //update display
-	  backspace();
-	  transmitDisplay("3");
+	  displayClear();
+	  transmitDisplay("Spectrum");
 
 	  //mode 3 event loop
 	  while (userBtnFlag == 0){

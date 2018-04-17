@@ -57,22 +57,86 @@ void allColor (struct color leds[ROWS][COLS], int percent, int * color){
 	}
 }
 
+void setBorderColor(struct color leds[ROWS][COLS], int * color, int depth){
+	//variable initializations
+	int col = 0;
+	int row = 0;
+
+
+	for ( int x = 0; x <= depth; x++){
+
+		/* top and bottom */
+		// setting bottom border (0:depth, 0: COLS - depth - 1
+		for( col = depth; col < COLS; col++){
+			setColor(leds, x, col, BRIGHTNESS, color);
+		}
+
+		// setting top border
+		for( col = 0; col < COLS; col++){
+			setColor(leds, 11 - x, col, BRIGHTNESS, color);
+		}
+
+		/* sides */
+		// setting left side border
+		for (row = 0; row < ROWS; row++){
+			setColor(leds, row, 11 - x, BRIGHTNESS, color);
+		}
+
+		// setting right side border
+		for (row = 0; row < ROWS; row++){
+			setColor(leds, row, x, BRIGHTNESS, color);
+		}
+	}
+
+
+
+
+}
+
+void setInnerBoxColor(struct color leds[ROWS][COLS], int * color, int depth){
+
+	// set inner box based on how far in the border is
+	for (int row = (depth + 1); row < (ROWS - 1 - depth); row++){
+		for (int col = (depth + 1); col < (COLS - 1 - depth); col++){
+			setColor (leds, row, col, BRIGHTNESS, color);
+		}
+	}
+}
+
 void mode1(struct color leds[ROWS][COLS], int * spectrum){
 
-	if ( (spectrum[0] > 100) || (spectrum[1] > 100)){
+	// variable initializations
+	int depth = 1;
+
+	//reset the border based on spectrum 3
+	if ( spectrum[BORDER_SPECTRUM] > THRESH6){
+		setBorderColor(leds, magenta, depth);
+	}
+	else if( spectrum[BORDER_SPECTRUM] > THRESH5){
+		setBorderColor(leds, green, depth);
+	}
+	else if (spectrum[BORDER_SPECTRUM] > THRESH4){
+		setBorderColor(leds, red, depth);
+	}
+	else if (spectrum[BORDER_SPECTRUM] > THRESH3){
+		setBorderColor(leds, blue, depth);
+	}
+
+
+	if ( (spectrum[0] > 100) || (spectrum[1] > 100) ){
 
 		if (spectrum[4] > 100){
-			allColor(leds, BRIGHTNESS, blue);
+			setInnerBoxColor(leds, red, depth);
 		}
 		else if( spectrum[5] > 100){
-			allColor(leds, BRIGHTNESS, red);
+			setInnerBoxColor(leds, blue, depth);
 		}
 		else{
-			allColor(leds, BRIGHTNESS, green);
+			setInnerBoxColor(leds, green, depth);
 		}
 	}
 	else{
-		allColor(leds, BRIGHTNESS, off);
+		setInnerBoxColor(leds, off, depth);
 	}
 }
 
