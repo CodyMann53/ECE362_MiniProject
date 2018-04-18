@@ -3498,7 +3498,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x845 Src/filter.o
  .debug_macro   0x00000000       0x4c Src/filter.o
  .debug_macro   0x00000000      0x10d Src/filter.o
- .debug_macro   0x00000000       0x8e Src/filter.o
+ .debug_macro   0x00000000       0x94 Src/filter.o
  .group         0x00000000        0x8 Src/gpio.o
  .group         0x00000000        0x8 Src/gpio.o
  .group         0x00000000        0x8 Src/gpio.o
@@ -3687,7 +3687,7 @@ Discarded input sections
  .data          0x00000000        0x0 Src/interrupts.o
  .bss           0x00000000        0x0 Src/interrupts.o
  .debug_macro   0x00000000      0x8aa Src/interrupts.o
- .debug_macro   0x00000000       0x8e Src/interrupts.o
+ .debug_macro   0x00000000       0x94 Src/interrupts.o
  .debug_macro   0x00000000       0x64 Src/interrupts.o
  .debug_macro   0x00000000       0xb1 Src/interrupts.o
  .debug_macro   0x00000000       0x2e Src/interrupts.o
@@ -3814,7 +3814,7 @@ Discarded input sections
  .data          0x00000000        0x0 Src/ledFunctions.o
  .bss           0x00000000        0x0 Src/ledFunctions.o
  .debug_macro   0x00000000      0x8aa Src/ledFunctions.o
- .debug_macro   0x00000000       0x8e Src/ledFunctions.o
+ .debug_macro   0x00000000       0x94 Src/ledFunctions.o
  .debug_macro   0x00000000       0x64 Src/ledFunctions.o
  .debug_macro   0x00000000       0xb1 Src/ledFunctions.o
  .debug_macro   0x00000000       0x2e Src/ledFunctions.o
@@ -4000,7 +4000,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x845 Src/main.o
  .debug_macro   0x00000000       0x4c Src/main.o
  .debug_macro   0x00000000      0x10d Src/main.o
- .debug_macro   0x00000000       0x8e Src/main.o
+ .debug_macro   0x00000000       0x94 Src/main.o
  .debug_macro   0x00000000       0x35 Src/main.o
  .group         0x00000000        0x8 Src/spi.o
  .group         0x00000000        0x8 Src/spi.o
@@ -4623,7 +4623,7 @@ Discarded input sections
  .debug_macro   0x00000000      0x845 Src/tim.o
  .debug_macro   0x00000000       0x4c Src/tim.o
  .debug_macro   0x00000000      0x10d Src/tim.o
- .debug_macro   0x00000000       0x8e Src/tim.o
+ .debug_macro   0x00000000       0x94 Src/tim.o
  .text          0x00000000       0x14 startup/startup_stm32f051x8.o
  .data          0x00000000        0x0 startup/startup_stm32f051x8.o
  .bss           0x00000000        0x0 startup/startup_stm32f051x8.o
@@ -5497,7 +5497,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_ranges  0x00000b70       0x30 Src/tim.o
  .debug_ranges  0x00000ba0       0x20 startup/startup_stm32f051x8.o
 
-.debug_macro    0x00000000    0x114c8
+.debug_macro    0x00000000    0x114ce
  .debug_macro   0x00000000      0x342 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_macro   0x00000342      0x8aa Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_macro   0x00000bec       0x64 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -5570,20 +5570,20 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_macro   0x0000ef95      0x370 Src/displayDriver.o
  .debug_macro   0x0000f305       0x16 Src/displayDriver.o
  .debug_macro   0x0000f31b       0x35 Src/displayDriver.o
- .debug_macro   0x0000f350       0x8e Src/displayDriver.o
- .debug_macro   0x0000f3de      0x363 Src/filter.o
- .debug_macro   0x0000f741      0x328 Src/gpio.o
- .debug_macro   0x0000fa69      0x34d Src/interrupts.o
- .debug_macro   0x0000fdb6      0x335 Src/ledFunctions.o
- .debug_macro   0x000100eb      0x3b7 Src/main.o
- .debug_macro   0x000104a2       0x16 Src/main.o
- .debug_macro   0x000104b8       0x16 Src/main.o
- .debug_macro   0x000104ce       0x29 Src/main.o
- .debug_macro   0x000104f7      0x332 Src/spi.o
- .debug_macro   0x00010829      0x31e Src/stm32f0xx_hal_msp.o
- .debug_macro   0x00010b47      0x328 Src/stm32f0xx_it.o
- .debug_macro   0x00010e6f      0x31e Src/system_stm32f0xx.o
- .debug_macro   0x0001118d      0x33b Src/tim.o
+ .debug_macro   0x0000f350       0x94 Src/displayDriver.o
+ .debug_macro   0x0000f3e4      0x363 Src/filter.o
+ .debug_macro   0x0000f747      0x328 Src/gpio.o
+ .debug_macro   0x0000fa6f      0x34d Src/interrupts.o
+ .debug_macro   0x0000fdbc      0x335 Src/ledFunctions.o
+ .debug_macro   0x000100f1      0x3b7 Src/main.o
+ .debug_macro   0x000104a8       0x16 Src/main.o
+ .debug_macro   0x000104be       0x16 Src/main.o
+ .debug_macro   0x000104d4       0x29 Src/main.o
+ .debug_macro   0x000104fd      0x332 Src/spi.o
+ .debug_macro   0x0001082f      0x31e Src/stm32f0xx_hal_msp.o
+ .debug_macro   0x00010b4d      0x328 Src/stm32f0xx_it.o
+ .debug_macro   0x00010e75      0x31e Src/system_stm32f0xx.o
+ .debug_macro   0x00011193      0x33b Src/tim.o
 
 .debug_line     0x00000000     0xd545
  .debug_line    0x00000000      0x958 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -5609,7 +5609,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_line    0x0000cc54      0x86e Src/tim.o
  .debug_line    0x0000d4c2       0x83 startup/startup_stm32f051x8.o
 
-.debug_str      0x00000000    0x55b45
+.debug_str      0x00000000    0x55b57
  .debug_str     0x00000000    0x52988 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                               0x52c83 (size before relaxing)
  .debug_str     0x00052988      0x707 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
@@ -5628,28 +5628,28 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
                               0x531cb (size before relaxing)
  .debug_str     0x000553bf       0x55 Src/adc.o
                               0x52bbc (size before relaxing)
- .debug_str     0x00055414      0x38e Src/displayDriver.o
-                              0x53007 (size before relaxing)
- .debug_str     0x000557a2       0x50 Src/filter.o
-                              0x52f68 (size before relaxing)
- .debug_str     0x000557f2       0x1b Src/gpio.o
+ .debug_str     0x00055414      0x3a0 Src/displayDriver.o
+                              0x53019 (size before relaxing)
+ .debug_str     0x000557b4       0x50 Src/filter.o
+                              0x52f7a (size before relaxing)
+ .debug_str     0x00055804       0x1b Src/gpio.o
                               0x527d9 (size before relaxing)
- .debug_str     0x0005580d       0x1c Src/interrupts.o
-                              0x52d65 (size before relaxing)
- .debug_str     0x00055829       0xf0 Src/ledFunctions.o
-                              0x52a26 (size before relaxing)
- .debug_str     0x00055919      0x12c Src/main.o
-                              0x53637 (size before relaxing)
- .debug_str     0x00055a45       0x17 Src/spi.o
+ .debug_str     0x0005581f       0x1c Src/interrupts.o
+                              0x52d77 (size before relaxing)
+ .debug_str     0x0005583b       0xf0 Src/ledFunctions.o
+                              0x52a38 (size before relaxing)
+ .debug_str     0x0005592b      0x12c Src/main.o
+                              0x53649 (size before relaxing)
+ .debug_str     0x00055a57       0x17 Src/spi.o
                               0x52c00 (size before relaxing)
- .debug_str     0x00055a5c       0x1b Src/stm32f0xx_hal_msp.o
+ .debug_str     0x00055a6e       0x1b Src/stm32f0xx_hal_msp.o
                               0x528e6 (size before relaxing)
- .debug_str     0x00055a77       0x48 Src/stm32f0xx_it.o
+ .debug_str     0x00055a89       0x48 Src/stm32f0xx_it.o
                               0x52ad3 (size before relaxing)
- .debug_str     0x00055abf       0x5a Src/system_stm32f0xx.o
+ .debug_str     0x00055ad1       0x5a Src/system_stm32f0xx.o
                               0x5274a (size before relaxing)
- .debug_str     0x00055b19       0x2c Src/tim.o
-                              0x530d3 (size before relaxing)
+ .debug_str     0x00055b2b       0x2c Src/tim.o
+                              0x530e5 (size before relaxing)
 
 .comment        0x00000000       0x7f
  .comment       0x00000000       0x7f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o

@@ -43,7 +43,8 @@ struct color{
 #define TOP_SIDE 6
 #define BOTTOM_SIDE 5
 
-#define BOX_DECAY_RATE 10
+#define BOX_DECAY_RANGE 10
+#define BOX_DECAY_RATE 2
 
 // Total number of bytes that are sent to update led strip */
 #define BYTES ROWS*COLS*3

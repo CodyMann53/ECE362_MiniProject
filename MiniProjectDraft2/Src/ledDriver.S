@@ -52,7 +52,7 @@ ledStripWrite:
 		ldr r1, =1
 		ldr r2, =0
 		ldr r3, =0b01
-		lsls r3, r3, 9
+		lsls r3, r3, 7
 		ldr r4, =GPIOC
 		ldr r5, =BSRR
 

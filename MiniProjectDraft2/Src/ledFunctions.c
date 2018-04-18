@@ -69,19 +69,19 @@ void setInnerBox(struct color leds[ROWS][COLS], int * color){
 
 	int expand = 0;
 
-	if ( boxArea >= (4 * BOX_DECAY_RATE) ){
+	if ( boxArea >= (4 * BOX_DECAY_RANGE) ){
 		expand = 4;
 	}
-	else if ( boxArea >= 3 * BOX_DECAY_RATE){
+	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
 		expand = 3;
 	}
-	else if ( boxArea >= 2 * BOX_DECAY_RATE){
+	else if ( boxArea >= 2 * BOX_DECAY_RANGE){
 		expand = 2;
 	}
-	else if ( boxArea >= 1 * BOX_DECAY_RATE ){
+	else if ( boxArea >= 1 * BOX_DECAY_RANGE){
 		expand = 1;
 	}
-	else if ( boxArea >= 0 * BOX_DECAY_RATE ){
+	else if ( boxArea >= 0 * BOX_DECAY_RANGE){
 		expand = 0;
 	}
 	else{
@@ -117,19 +117,19 @@ void mode1(struct color leds[ROWS][COLS], int * spectrum){
 	//update the box side length in the middle based on how much of a beat is present
 	// this will only overwrite the area of the box that needs updating. Everything else will stay as the base color
 
-	if (  ( (spectrum[1] > THRESH10) || (spectrum[0] > THRESH10) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
-		boxArea = 4 *  BOX_DECAY_RATE;
+	if (  ( (spectrum[1] > THRESH11) || (spectrum[0] > THRESH10) ) & ( (boxArea >= 4 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
+		boxArea = 4 *  BOX_DECAY_RANGE;
 	}
-	else if (  ( (spectrum[1] > THRESH9) || (spectrum[0] > THRESH9) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
-		boxArea = 3 * BOX_DECAY_RATE;
+	else if (  ( (spectrum[1] > THRESH10) || (spectrum[0] > THRESH9) ) & ( (boxArea >= 4 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
+		boxArea = 3 * BOX_DECAY_RANGE;
 
 	}
-	else if (  ( (spectrum[1] > THRESH8) || (spectrum[0] > THRESH8) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
-		boxArea = 2 * BOX_DECAY_RATE ;
+	else if (  ( (spectrum[1] > THRESH9) || (spectrum[0] > THRESH8) ) & ( (boxArea >= 4 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
+		boxArea = 2 * BOX_DECAY_RANGE ;
 
 	}
-	else if ( ( (spectrum[1] > THRESH7) || (spectrum[0] > THRESH7) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )   ){
-		boxArea = 1 * BOX_DECAY_RATE;
+	else if ( ( (spectrum[1] > THRESH8) || (spectrum[0] > THRESH7) ) & ( (boxArea >= 4 * BOX_DECAY_RANGE) || (boxArea < 0) )   ){
+		boxArea = 1 * BOX_DECAY_RANGE;
 
 	}
 	else{
@@ -137,7 +137,7 @@ void mode1(struct color leds[ROWS][COLS], int * spectrum){
 		if (boxArea >= 0){
 
 			// decrease box area
-			boxArea = boxArea - 1;
+			boxArea = boxArea - BOX_DECAY_RATE;
 		}
 
 	}
