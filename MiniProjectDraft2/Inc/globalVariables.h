@@ -8,6 +8,8 @@
 #ifndef GLOBALVARIABLES_H_
 #define GLOBALVARIABLES_H_
 
+/* INCLUDES */
+#include "ledFunctions.h"
 
 /* used to keep track of millesonds for delay function */
  extern volatile int ms;
@@ -31,5 +33,14 @@
  extern int yellow[3];
  extern int teal[3];
  extern int off[3];
+ extern int white[3];
+ extern int cyan[3];
+ extern int maroon[3];
+ extern int olive[3];
+ extern int purple[3];
+ extern int boxArea;
+
+ extern int * mode1ColorPattern[10];
+ extern int colorIndex;
 
 #endif /* GLOBALVARIABLES_H_ */

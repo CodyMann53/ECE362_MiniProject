@@ -51,12 +51,12 @@
 #include "filter.h"
 #include "stdlib.h"
 
-
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 /* Private variables ---------------------------------------------------------*/
 	volatile int ms = 0;
 	volatile int userBtnFlag = 0;
@@ -64,15 +64,24 @@
 	volatile int userBtnPrevious = 0;
 	volatile int msCountFlag = 0;
 
-	/* initialize colors  { red, green, blue} */
+/* initialize colors  { red, green, blue} */
 	 int red[3] = {255, 0, 0};
 	 int green[3] = {0, 255, 0};
 	 int blue[3] = {0, 0, 255};
 	 int magenta[3] = {255,0,255};
 	 int yellow[3] = {255, 255, 0};
+	 int white[3] = {255, 255, 255};
+	 int cyan[3] = {0, 255, 255};
+	 int maroon[3] = {128, 0, 0};
+	 int olive[3] = {128, 128, 0};
+	 int purple[3] = {128, 0, 128};
 	 int teal[3] = {0, 128, 128};
 	 int off[3] = {0, 0, 0};
 
+	 /* memory for mode 1*/
+	 int boxArea =  0; // need to start out at max to allow for correct operation
+	 int * mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, white, yellow, magenta, blue, green, red};
+	 int colorIndex = 0;
 
 /* USER CODE END PV */
 
@@ -128,15 +137,16 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
+
   /* USER CODE BEGIN 2 */
 
   /* start TIM2 and TIM3 */
   HAL_TIM_Base_Start_IT(&htim3);
 
   /* LCD initializations */
-  delay_ms(100);
+  delay_ms(1000);
   displayOn();
-  displayBrightness(2);
+  displayBrightness(8);
   displayClear();
 
   /* local variables */
@@ -144,7 +154,7 @@ int main(void)
   // initialize led array
   struct color leds [ROWS][COLS];
 
-  /* spectrum array */
+  // initialize spectrum array
   int spectrum[7];
 
   /* USER CODE END 2 */
@@ -168,11 +178,11 @@ int main(void)
 		  //update leds
 		  mode1( leds, spectrum);
 
-		  // write to the led matrix board
+		  // write to the led strip
 		  writeLeds(leds);
 
 		  //wait for led write to complete
-		  delay_ms(3);
+		  delay_ms(6);
 
 	  }
 
@@ -191,14 +201,17 @@ int main(void)
 		  //randomize LED display
 		  twinkle(leds);
 
-		  // write to the leds
+		  // write to the led strip
 		  writeLeds(leds);
 
-
-		  // delay
-		  delay_ms(1000);
+		  // delay to allow board to keep colors
+		  delay_ms(100);
 
 	  }
+
+	  // reset user button flag
+	  userBtnFlag = 0;
+
 
 	  //reset user button flag
 	  userBtnFlag = 0;
@@ -215,19 +228,14 @@ int main(void)
 		  //update filter
 		  filter(spectrum);
 
-
-		  // update led array based on spectrum
+		  // update led array based on audio spectrum content
 		  spectrumAnalyzer(leds, spectrum);
 
-		  HAL_TIM_Base_Stop_IT(&htim3);
-
-		  // write to the leds
+		  // write to the led strip
 		  writeLeds(leds);
 
-		  HAL_TIM_Base_Start_IT(&htim3);
-
 		  // allow time for leds to be updated
-		  delay_ms(20);
+		  delay_ms(5);
 
 	  }
 

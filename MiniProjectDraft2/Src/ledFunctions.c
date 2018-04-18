@@ -64,87 +64,86 @@ void allColor (struct color leds[ROWS][COLS], int percent, int * color){
 	}
 }
 
-void setBorderColor(struct color leds[ROWS][COLS], int * color, int depth){
-	//variable initializations
-	int col = 0;
-	int row = 0;
 
+void setInnerBox(struct color leds[ROWS][COLS], int * color){
 
-	for ( int x = 0; x <= depth; x++){
+	int expand = 0;
 
-		/* top and bottom */
-		// setting bottom border (0:depth, 0: COLS - depth - 1
-		for( col = depth; col < COLS; col++){
-			setColor(leds, x, col, BRIGHTNESS, color);
-		}
+	if ( boxArea >= (4 * BOX_DECAY_RATE) ){
+		expand = 4;
+	}
+	else if ( boxArea >= 3 * BOX_DECAY_RATE){
+		expand = 3;
+	}
+	else if ( boxArea >= 2 * BOX_DECAY_RATE){
+		expand = 2;
+	}
+	else if ( boxArea >= 1 * BOX_DECAY_RATE ){
+		expand = 1;
+	}
+	else if ( boxArea >= 0 * BOX_DECAY_RATE ){
+		expand = 0;
+	}
+	else{
+		expand = -1;
+	}
 
-		// setting top border
-		for( col = 0; col < COLS; col++){
-			setColor(leds, 11 - x, col, BRIGHTNESS, color);
-		}
+	if ( boxArea >= 0){
+		// loop through each row that needs to be set
+		for(int row = (BOTTOM_SIDE - expand); row <= (TOP_SIDE + expand); row++){
 
-		/* sides */
-		// setting left side border
-		for (row = 0; row < ROWS; row++){
-			setColor(leds, row, 11 - x, BRIGHTNESS, color);
-		}
+			//loop through each col that needs to be set for each row
+			for(int col = (LEFT_SIDE + expand); col >= (RIGHT_SIDE - expand); col--){
 
-		// setting right side border
-		for (row = 0; row < ROWS; row++){
-			setColor(leds, row, x, BRIGHTNESS, color);
-		}
+				// set the specifice led to desired color
+				setColor(leds, row, col, BRIGHTNESS, color);
+			}// end of col loop
+		}// end of row loop
+	}
+	else{
+
+		// do nothing
 	}
 
 
 
-
-}
-
-void setInnerBoxColor(struct color leds[ROWS][COLS], int * color, int depth){
-
-	// set inner box based on how far in the border is
-	for (int row = (depth + 1); row < (ROWS - 1 - depth); row++){
-		for (int col = (depth + 1); col < (COLS - 1 - depth); col++){
-			setColor (leds, row, col, BRIGHTNESS, color);
-		}
-	}
 }
 
 void mode1(struct color leds[ROWS][COLS], int * spectrum){
 
-	// variable initializations
-	int depth = 1;
+	// set every led as a base color
+	allColor(leds, BRIGHTNESS, red);
 
-	//reset the border based on spectrum 3
-	if ( spectrum[BORDER_SPECTRUM] > THRESH6){
-		setBorderColor(leds, magenta, depth);
-	}
-	else if( spectrum[BORDER_SPECTRUM] > THRESH5){
-		setBorderColor(leds, green, depth);
-	}
-	else if (spectrum[BORDER_SPECTRUM] > THRESH4){
-		setBorderColor(leds, red, depth);
-	}
-	else if (spectrum[BORDER_SPECTRUM] > THRESH3){
-		setBorderColor(leds, blue, depth);
-	}
+	//update the box side length in the middle based on how much of a beat is present
+	// this will only overwrite the area of the box that needs updating. Everything else will stay as the base color
 
+	if (  ( (spectrum[1] > THRESH10) || (spectrum[0] > THRESH10) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
+		boxArea = 4 *  BOX_DECAY_RATE;
+	}
+	else if (  ( (spectrum[1] > THRESH9) || (spectrum[0] > THRESH9) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
+		boxArea = 3 * BOX_DECAY_RATE;
 
-	if ( (spectrum[0] > 100) || (spectrum[1] > 100) ){
+	}
+	else if (  ( (spectrum[1] > THRESH8) || (spectrum[0] > THRESH8) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )  ){
+		boxArea = 2 * BOX_DECAY_RATE ;
 
-		if (spectrum[4] > 100){
-			setInnerBoxColor(leds, red, depth);
-		}
-		else if( spectrum[5] > 100){
-			setInnerBoxColor(leds, blue, depth);
-		}
-		else{
-			setInnerBoxColor(leds, green, depth);
-		}
+	}
+	else if ( ( (spectrum[1] > THRESH7) || (spectrum[0] > THRESH7) ) & ( (boxArea >= 4 * BOX_DECAY_RATE) || (boxArea < 0) )   ){
+		boxArea = 1 * BOX_DECAY_RATE;
+
 	}
 	else{
-		setInnerBoxColor(leds, off, depth);
+
+		if (boxArea >= 0){
+
+			// decrease box area
+			boxArea = boxArea - 1;
+		}
+
 	}
+
+		// update the inner box
+		setInnerBox(leds, blue);
 }
 
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col){

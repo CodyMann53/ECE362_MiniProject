@@ -19,9 +19,6 @@ struct color{
 #define ROWS 12
 #define COLS 12
 
-/* which the spectrum the border color is with respect to */
-#define BORDER_SPECTRUM 3
-
 // thresholds for spectrum analyzer
 #define INCREMENT 10
 #define THRESH1 INCREMENT
@@ -37,8 +34,16 @@ struct color{
 #define THRESH11 THRESH10 + INCREMENT
 
 // brightness value for all of the lights
-#define BRIGHTNESS 75
+#define BRIGHTNESS 5
 #define MAX_BRIGHTNESS 100
+
+// constants for mode 1 box size
+#define LEFT_SIDE 6
+#define RIGHT_SIDE 5
+#define TOP_SIDE 6
+#define BOTTOM_SIDE 5
+
+#define BOX_DECAY_RATE 10
 
 // Total number of bytes that are sent to update led strip */
 #define BYTES ROWS*COLS*3
@@ -60,6 +65,7 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col);
 /* mode for updating the led with a spectrum analyzer */
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum);
 
+/* writes to the leds at low speed */
 void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
 
 /* reorders the matrix rows that are out of place */
@@ -71,11 +77,9 @@ void writeLeds(struct color leds[ROWS][COLS]);
 /* mode 2 for generating random colors on led matrix without any music input */
 void twinkle(struct color leds[ROWS][COLS]);
 
-/* sets the border of the led matrix to a certain color and also the depth that it goes in.
- * If only the outside border is required, then depth is 0 */
-void setBorderColor(struct color leds[ROWS][COLS], int * color, int depth);
-
-/* sets the inside of the border based on the settings of setBorderColor function */
-void setInnerBoxColor(struct color leds[ROWS][COLS], int * color, int depth);
+/* sets the innerbox size and color for mode 1. Expand parameter sets the box area. expand is in increments of 1 and can be
+ * from 1-5.
+ */
+void setInnerBox(struct color leds[ROWS][COLS], int * color);
 
 #endif /* LEDFUNCTIONS_H_ */

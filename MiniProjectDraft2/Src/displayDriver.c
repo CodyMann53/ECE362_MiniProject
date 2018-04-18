@@ -11,7 +11,7 @@ void displayOn(void){
 	HAL_SPI_Transmit (&hspi1, data, sizeof(uint8_t)*2, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -22,7 +22,7 @@ void displayOff(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -32,7 +32,7 @@ void transmitDisplay(char * string){
 		HAL_SPI_Transmit (&hspi1, (uint8_t *) &string[x], 1, 1);
 
 		// delay 100ms
-		delay_ms(10);
+		delay_ms(5);
 	}
 }
 
@@ -43,7 +43,7 @@ void displayClear(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 }
 
 void turnOnBlinkingCursor(void){
@@ -53,7 +53,7 @@ void turnOnBlinkingCursor(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -64,7 +64,7 @@ void cursorLeft(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 10ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -74,7 +74,7 @@ void displayBrightness(int brightness){
 	HAL_SPI_Transmit (&hspi1, data, 3, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -85,7 +85,7 @@ void cursorPosition(int position){
 	HAL_SPI_Transmit (&hspi1, data, 3, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 
 }
@@ -97,7 +97,7 @@ void cursorHome(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 100ms
-	delay_ms(100);
+	delay_ms(5);
 
 }
 
@@ -107,6 +107,6 @@ void backspace(void){
 	HAL_SPI_Transmit (&hspi1, data, 2, 1);
 
 	// delay 100 ms
-	delay_ms(100);
+	delay_ms(5);
 }
 

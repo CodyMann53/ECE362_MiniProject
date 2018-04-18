@@ -1,6 +1,7 @@
 Src/ledFunctions.o: ../Src/ledFunctions.c \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/globalVariables.h \
+ C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/stm32f0xx_hal_conf.h \
  C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/main.h \
@@ -35,6 +36,8 @@ Src/ledFunctions.o: ../Src/ledFunctions.c \
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h:
 
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/globalVariables.h:
+
+C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Inc/ledFunctions.h:
 
 C:/Users/Cody\ Mann/git/ECE362_MiniProject/MiniProjectDraft2/Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal.h:
 
