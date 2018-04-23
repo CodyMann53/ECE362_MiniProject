@@ -81,7 +81,7 @@
 	 /* memory for mode 1*/
 	 int boxArea =  0;
 	 int borderArea = 0;
-	 int * mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, yellow, magenta, blue, green, red};
+	 int * mode1ColorPattern[9] = {teal, purple, olive, white, cyan, yellow, magenta, blue, green};
 	 int colorIndex = 0;
 
 /* USER CODE END PV */

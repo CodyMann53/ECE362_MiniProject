@@ -41,7 +41,7 @@
  extern int boxArea;
  extern int borderArea;
 
- extern int * mode1ColorPattern[10];
+ extern int * mode1ColorPattern[9];
  extern int colorIndex;
 
 #endif /* GLOBALVARIABLES_H_ */

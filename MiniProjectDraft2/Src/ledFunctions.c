@@ -86,8 +86,8 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 			// increment color if box came all the way back in
 			colorIndex = colorIndex + 1;
 
-			// keep color index from 0-9
-			if (colorIndex > 9){
+			// keep color index from 0-8
+			if (colorIndex > 8){
 
 				//reset back to first color
 				colorIndex = 0;
@@ -100,10 +100,8 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	// expand is set to a value based on how much the box has decayed back in and used to update the led matrix
 	int expand = 0;
 
-	if ( boxArea >= (5 * BOX_DECAY_RANGE) ){
-		expand = 5;
-	}
-	else if ( boxArea >= 4 * BOX_DECAY_RANGE){
+
+	if ( boxArea >= 4 * BOX_DECAY_RANGE){
 		expand = 4;
 	}
 	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
@@ -135,9 +133,6 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 				setColor(leds, row, col, BRIGHTNESS, mode1ColorPattern[colorIndex]);
 			}
 		}
-	}
-	else{// the box has decayed all the way and does not need to be set
-		// do nothing
 	}
 }
 
