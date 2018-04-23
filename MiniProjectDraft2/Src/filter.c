@@ -22,7 +22,7 @@ void filter(int * spectrum){
 	//set reset low
 	reset(0);
 
-	// delay for 72 us ???
+	// delay for 72 us until strobe can go low
 	delay_us(72);
 
 	// loop through all of the bands and read their dc values
@@ -32,7 +32,7 @@ void filter(int * spectrum){
 		strobe(0);
 
 		//delay for 40 us to allow DC output to settle
-		delay_us(36);
+		delay_us(40);
 
 		//start ADC conversion
 		HAL_ADC_Start(&hadc);
@@ -49,7 +49,7 @@ void filter(int * spectrum){
 		//set strobe high
 		strobe(1);
 
-		//delay 35 us to satisfy timing constraints
+		//delay 36 us to satisfy strobe minimum period timing constraints
 		delay_us(36);
 
 	}

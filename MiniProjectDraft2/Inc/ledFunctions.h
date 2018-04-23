@@ -19,6 +19,9 @@ struct color{
 #define ROWS 12
 #define COLS 12
 
+// Total number of bytes that are sent to update led strip */
+#define BYTES ROWS*COLS*3
+
 // thresholds for spectrum analyzer
 #define INCREMENT 10
 #define THRESH1 INCREMENT
@@ -33,6 +36,12 @@ struct color{
 #define THRESH10 THRESH9 + INCREMENT
 #define THRESH11 THRESH10 + INCREMENT
 
+//bass threshold for mode 1
+#define BASS_THRESH 100
+
+//Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
+#define BOX_MAX_SIZE 4
+
 // brightness value for all of the lights
 #define BRIGHTNESS 5
 #define MAX_BRIGHTNESS 100
@@ -43,11 +52,9 @@ struct color{
 #define TOP_SIDE 6
 #define BOTTOM_SIDE 5
 
+/*box decay constants for how quickly the box moves in and and out */
 #define BOX_DECAY_RANGE 10
-#define BOX_DECAY_RATE 2
-
-// Total number of bytes that are sent to update led strip */
-#define BYTES ROWS*COLS*3
+#define BOX_DECAY_RATE 3
 
 /* FUNCTION DECLARATIONS */
 
@@ -78,9 +85,11 @@ void writeLeds(struct color leds[ROWS][COLS]);
 /* mode 2 for generating random colors on led matrix without any music input */
 void twinkle(struct color leds[ROWS][COLS]);
 
-/* sets the innerbox size and color for mode 1. Expand parameter sets the box area. expand is in increments of 1 and can be
- * from 1-5.
- */
-void setInnerBox(struct color leds[ROWS][COLS], int * color);
+/* sets the inner box color and area based on base frequency value for mode1 */
+void setInnerBox(struct color leds[ROWS][COLS], int * spectrum);
+
+/* sets the backgound leds that are not apart of the box beating to the bass.
+ * This is for mode 1 */
+void setBackground(struct color leds[ROWS][COLS]);
 
 #endif /* LEDFUNCTIONS_H_ */

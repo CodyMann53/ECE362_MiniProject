@@ -79,8 +79,9 @@
 	 int off[3] = {0, 0, 0};
 
 	 /* memory for mode 1*/
-	 int boxArea =  0; // need to start out at max to allow for correct operation
-	 int * mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, white, yellow, magenta, blue, green, red};
+	 int boxArea =  0;
+	 int borderArea = 0;
+	 int * mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, yellow, magenta, blue, green, red};
 	 int colorIndex = 0;
 
 /* USER CODE END PV */
@@ -137,24 +138,31 @@ int main(void)
   MX_SPI1_Init();
   MX_TIM3_Init();
   MX_ADC_Init();
-
   /* USER CODE BEGIN 2 */
 
-  /* start TIM2 and TIM3 */
+  /* start TIM3 */
   HAL_TIM_Base_Start_IT(&htim3);
 
   /* LCD initializations */
-  delay_ms(1000);
+
+  // delay 100 ms to allow LCD controller to come out of reset correctly
+  delay_ms(100);
+
+  // turn the display on
   displayOn();
+
+  // set the display to max brightnes
   displayBrightness(8);
+
+  // clear anything that was left on the screen
   displayClear();
 
   /* local variables */
 
-  // initialize led array
+  // initialize led matrix
   struct color leds [ROWS][COLS];
 
-  // initialize spectrum array
+  // initialize spectrum array for sampling
   int spectrum[7];
 
   /* USER CODE END 2 */
@@ -211,7 +219,6 @@ int main(void)
 
 	  // reset user button flag
 	  userBtnFlag = 0;
-
 
 	  //reset user button flag
 	  userBtnFlag = 0;

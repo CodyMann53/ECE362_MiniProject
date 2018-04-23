@@ -48,6 +48,7 @@ void ledMatrixReorder(struct color leds[ROWS][COLS]){
 
 void setColor (struct color leds[ROWS][COLS], int row, int col, int percent, int * color)
 {
+		//set the red, green, and blue colors to a percentage brightness
 		leds[row][col].red = color[0]*percent/100;
 		leds[row][col].green = color[1]*percent/100;
 		leds[row][col].blue = color[2]*percent/100;
@@ -55,7 +56,7 @@ void setColor (struct color leds[ROWS][COLS], int row, int col, int percent, int
 	return;
 }
 
-void allColor (struct color leds[ROWS][COLS], int percent, int * color){
+void allColor(struct color leds[ROWS][COLS], int percent, int * color){
 
 	for (int row = 0; row < ROWS; row++){
 		for( int col = 0; col < COLS; col++){
@@ -64,9 +65,39 @@ void allColor (struct color leds[ROWS][COLS], int percent, int * color){
 	}
 }
 
+void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 
-void setInnerBox(struct color leds[ROWS][COLS], int * color){
+	/* CHECKING SPECTRUM TO SET THE BOX AREA */
 
+	// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
+	if ( ( (spectrum[1] > BASS_THRESH) || (spectrum[0] > BASS_THRESH)  ) ){
+		boxArea = BOX_MAX_SIZE *  BOX_DECAY_RANGE;
+	}
+	else{// if the base spectrums didn't not get above threshold, then keep on decaying back to the middle
+
+		if (boxArea >= 0){// if the box area is still present on board, then keep bringing it back in. Box will go away when box area gets to -1
+
+			// decrease box area
+			boxArea = boxArea - BOX_DECAY_RATE;
+
+		}
+		else{// box came all the way back in
+
+			// increment color if box came all the way back in
+			colorIndex = colorIndex + 1;
+
+			// keep color index from 0-9
+			if (colorIndex > 9){
+
+				//reset back to first color
+				colorIndex = 0;
+			}
+		}
+	}
+
+	/* UPDATING THE LED MATRIX BASED BOX'S CURRENT AREA */
+
+	// expand is set to a value based on how much the box has decayed back in and used to update the led matrix
 	int expand = 0;
 
 	if ( boxArea >= (5 * BOX_DECAY_RANGE) ){
@@ -91,66 +122,38 @@ void setInnerBox(struct color leds[ROWS][COLS], int * color){
 		expand = -1;
 	}
 
+	// as long as the box area is greater than or equal to 0, the box is still decaying and needs to be updated on the led matrix
 	if ( boxArea >= 0){
+
 		// loop through each row that needs to be set
 		for(int row = (BOTTOM_SIDE - expand); row <= (TOP_SIDE + expand); row++){
 
-			//loop through each col that needs to be set for each row
+			//loop through each column that needs to be set for each row
 			for(int col = (LEFT_SIDE + expand); col >= (RIGHT_SIDE - expand); col--){
 
-				// set the specifice led to desired color
-				setColor(leds, row, col, BRIGHTNESS, color);
-			}// end of col loop
-		}// end of row loop
+				// set the specific led to desired color
+				setColor(leds, row, col, BRIGHTNESS, mode1ColorPattern[colorIndex]);
+			}
+		}
 	}
-	else{
-
+	else{// the box has decayed all the way and does not need to be set
 		// do nothing
 	}
-
-
-
 }
 
-void mode1(struct color leds[ROWS][COLS], int * spectrum){
+void setBackground(struct color leds[ROWS][COLS]){
 
-	// set every led as a base color
+	// set everything to red for now
 	allColor(leds, BRIGHTNESS, red);
 
-	//update the box side length in the middle based on how much of a beat is present
-	// this will only overwrite the area of the box that needs updating. Everything else will stay as the base color
+}
+void mode1(struct color leds[ROWS][COLS], int * spectrum){
 
-	if (  ( (spectrum[1] > THRESH11) || (spectrum[0] > THRESH11) ) & ( (boxArea >= 4 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
-		boxArea = 5 *  BOX_DECAY_RANGE;
-	}
-	else if (  ( (spectrum[1] > THRESH10) || (spectrum[0] > THRESH10) ) & ( (boxArea >= 3 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
-		boxArea = 4 * BOX_DECAY_RANGE;
+	// set the background colors (everything else in the matrix that is not the box for the bass)
+	setBackground(leds);
 
-	}
-	else if (  ( (spectrum[1] > THRESH9) || (spectrum[0] > THRESH9) ) & ( (boxArea >= 2 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
-		boxArea = 3 * BOX_DECAY_RANGE;
-
-	}
-	else if (  ( (spectrum[1] > THRESH8) || (spectrum[0] > THRESH8) ) & ( (boxArea >= 1 * BOX_DECAY_RANGE) || (boxArea < 0) )  ){
-		boxArea = 2 * BOX_DECAY_RANGE ;
-
-	}
-	else if ( ( (spectrum[1] > THRESH7) || (spectrum[0] > THRESH7) ) & ( (boxArea >= 0 * BOX_DECAY_RANGE) || (boxArea < 0) )   ){
-		boxArea = 1 * BOX_DECAY_RANGE;
-
-	}
-	else{
-
-		if (boxArea >= 0){
-
-			// decrease box area
-			boxArea = boxArea - BOX_DECAY_RATE;
-		}
-
-	}
-
-		// update the inner box
-		setInnerBox(leds, blue);
+	// update inner box matrix values
+	setInnerBox(leds, spectrum);
 }
 
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
@@ -159,22 +162,22 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
 	for (int x = 0; x < row; x++){
 
 		// if else clause to determine which colors get associated with each frequency band
-		if( (col == 0) || (col == 1) ){
+		if( (col == 0) || (col == 1) ){ // 6th band
 			setColor(leds, x, col, BRIGHTNESS, red);
 		}
-		else if( (col == 2) || (col==3) ){
+		else if( (col == 2) || (col==3) ){ // 5th band
 			setColor(leds, x, col, BRIGHTNESS, blue);
 		}
-		else if( (col == 4) || (col==5) ){
+		else if( (col == 4) || (col==5) ){// 4th band
 			setColor(leds, x, col, BRIGHTNESS, magenta);
 		}
-		else if( (col == 6) || (col==7) ){
+		else if( (col == 6) || (col==7) ){// 3rd band
 			setColor(leds, x, col, BRIGHTNESS, green);
 		}
-		else if( (col == 8) || (col==9) ){
+		else if( (col == 8) || (col==9) ){// 2nd band
 			setColor(leds, x, col, BRIGHTNESS, yellow);
 		}
-		else if( (col == 10) || (col==11) ){
+		else if( (col == 10) || (col==11) ){// 1st band
 			setColor(leds, x, col, BRIGHTNESS, teal);
 		}
 	}
@@ -280,70 +283,6 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 	}
 }
 
-void twinkle(struct color leds[ROWS][COLS])
-{
-  int fade = MAX_BRIGHTNESS;
-  int fadeFlag = 0;
-  int red = 255;
-  int rFlag = 0;
-  int green = 255;
-  int gFlag = 0;
-  int blue = 255;
-  int bFlag = 0;
-  int sub;
-  int val;
-  int start[3];
-  for(int row = 0; row < ROWS; row++){
-      for(int col = 0; col < COLS; col++){
-          //initializes the colors for each led
-          start[0] = red;
-          start[1] = green;
-          start[2] = blue;
-
-          setColor(leds, row, col, fade, start);
-
-          //varies the brightness for
-          if(fadeFlag != 1){
-             fade -= 5;
-          }
-          else{
-              fade += 5;
-          }
-          if(fade < 50){
-              fadeFlag = 1;
-          }
-          if(fade == 100)
-          {
-              fadeFlag = 0;
-          }
-
-          //creates a random value to be subtracted from red
-          sub = (rand() + 50)%(100+1);
-          red -= sub;
-
-          //keeps it in warm color range
-          if(red < 140){
-              red = 255;
-          }
-
-          //creates a random value to be subtracted from green
-          sub = (rand() + 50)%(100+1);
-          green -= sub;
-
-          //keeps it in warm color range
-          if(green < 140){
-              green = 255;
-          }
-
-          //creates a random value to be subtracted from blue
-          sub = (rand() + 50)%(100+1);
-          blue -= sub;
-
-          //keeps it in warm color range
-          if(blue < 140){
-              blue = 255;
-          }
-      }
-  }
-
+void twinkle(struct color leds[ROWS][COLS]){
+	// will be written by Fyffe
 }

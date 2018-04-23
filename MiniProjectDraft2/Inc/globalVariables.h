@@ -39,6 +39,7 @@
  extern int olive[3];
  extern int purple[3];
  extern int boxArea;
+ extern int borderArea;
 
  extern int * mode1ColorPattern[10];
  extern int colorIndex;
