@@ -101,10 +101,7 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	int expand = 0;
 
 
-	if ( boxArea >= 4 * BOX_DECAY_RANGE){
-		expand = 4;
-	}
-	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
+	if ( boxArea >= 3 * BOX_DECAY_RANGE){
 		expand = 3;
 	}
 	else if ( boxArea >= 2 * BOX_DECAY_RANGE){
@@ -121,7 +118,7 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	}
 
 	// as long as the box area is greater than or equal to 0, the box is still decaying and needs to be updated on the led matrix
-	if ( boxArea >= 0){
+	if ( (boxArea >= 0 ) & (expand >=0) ){
 
 		// loop through each row that needs to be set
 		for(int row = (BOTTOM_SIDE - expand); row <= (TOP_SIDE + expand); row++){

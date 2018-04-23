@@ -40,10 +40,10 @@ struct color{
 #define BASS_THRESH 150
 
 //Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
-#define BOX_MAX_SIZE 4
+#define BOX_MAX_SIZE 3
 
 // brightness value for all of the lights
-#define BRIGHTNESS 50
+#define BRIGHTNESS 5
 #define MAX_BRIGHTNESS 100
 
 // constants for mode 1 box size

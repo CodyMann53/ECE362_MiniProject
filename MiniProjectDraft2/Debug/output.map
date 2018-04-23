@@ -5263,7 +5263,7 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15
                 0x0000052e       0x1e c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15.0.201708311556/tools/compiler/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m/crtn.o
 OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
 
-.debug_info     0x00000000    0x1999d
+.debug_info     0x00000000    0x19993
  .debug_info    0x00000000      0xe84 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_info    0x00000e84     0x167d Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
  .debug_info    0x00002501      0xfef Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
@@ -5278,14 +5278,14 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_info    0x0001068a      0xc19 Src/gpio.o
  .debug_info    0x000112a3      0xfef Src/interrupts.o
  .debug_info    0x00012292       0x85 Src/ledDriverLowSpeed.o
- .debug_info    0x00012317     0x12cc Src/ledFunctions.o
- .debug_info    0x000135e3     0x1b14 Src/main.o
- .debug_info    0x000150f7     0x10e4 Src/spi.o
- .debug_info    0x000161db      0xb58 Src/stm32f0xx_hal_msp.o
- .debug_info    0x00016d33      0xe0b Src/stm32f0xx_it.o
- .debug_info    0x00017b3e      0xa7b Src/system_stm32f0xx.o
- .debug_info    0x000185b9     0x135d Src/tim.o
- .debug_info    0x00019916       0x87 startup/startup_stm32f051x8.o
+ .debug_info    0x00012317     0x12c2 Src/ledFunctions.o
+ .debug_info    0x000135d9     0x1b14 Src/main.o
+ .debug_info    0x000150ed     0x10e4 Src/spi.o
+ .debug_info    0x000161d1      0xb58 Src/stm32f0xx_hal_msp.o
+ .debug_info    0x00016d29      0xe0b Src/stm32f0xx_it.o
+ .debug_info    0x00017b34      0xa7b Src/system_stm32f0xx.o
+ .debug_info    0x000185af     0x135d Src/tim.o
+ .debug_info    0x0001990c       0x87 startup/startup_stm32f051x8.o
 
 .debug_abbrev   0x00000000     0x348b
  .debug_abbrev  0x00000000      0x2f4 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
@@ -5486,7 +5486,7 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_macro   0x00010e69      0x31e Src/system_stm32f0xx.o
  .debug_macro   0x00011187      0x33b Src/tim.o
 
-.debug_line     0x00000000     0xd4d6
+.debug_line     0x00000000     0xd4d4
  .debug_line    0x00000000      0x958 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
  .debug_line    0x00000958      0xd32 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
  .debug_line    0x0000168a      0x951 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_cortex.o
@@ -5501,16 +5501,16 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
  .debug_line    0x0000884b      0x7e8 Src/gpio.o
  .debug_line    0x00009033      0x81a Src/interrupts.o
  .debug_line    0x0000984d       0xf9 Src/ledDriverLowSpeed.o
- .debug_line    0x00009946      0x9a1 Src/ledFunctions.o
- .debug_line    0x0000a2e7      0x8f0 Src/main.o
- .debug_line    0x0000abd7      0x826 Src/spi.o
- .debug_line    0x0000b3fd      0x7dd Src/stm32f0xx_hal_msp.o
- .debug_line    0x0000bbda      0x7fa Src/stm32f0xx_it.o
- .debug_line    0x0000c3d4      0x811 Src/system_stm32f0xx.o
- .debug_line    0x0000cbe5      0x86e Src/tim.o
- .debug_line    0x0000d453       0x83 startup/startup_stm32f051x8.o
+ .debug_line    0x00009946      0x99f Src/ledFunctions.o
+ .debug_line    0x0000a2e5      0x8f0 Src/main.o
+ .debug_line    0x0000abd5      0x826 Src/spi.o
+ .debug_line    0x0000b3fb      0x7dd Src/stm32f0xx_hal_msp.o
+ .debug_line    0x0000bbd8      0x7fa Src/stm32f0xx_it.o
+ .debug_line    0x0000c3d2      0x811 Src/system_stm32f0xx.o
+ .debug_line    0x0000cbe3      0x86e Src/tim.o
+ .debug_line    0x0000d451       0x83 startup/startup_stm32f051x8.o
 
-.debug_str      0x00000000    0x55b22
+.debug_str      0x00000000    0x55b21
  .debug_str     0x00000000    0x5293a Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
                               0x52c35 (size before relaxing)
  .debug_str     0x0005293a      0x707 Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal_adc.o
@@ -5529,28 +5529,28 @@ OUTPUT(MiniProjectDraft2.elf elf32-littlearm)
                               0x5317d (size before relaxing)
  .debug_str     0x00055371       0x55 Src/adc.o
                               0x52b6e (size before relaxing)
- .debug_str     0x000553c6      0x3cb Src/displayDriver.o
-                              0x52ff6 (size before relaxing)
- .debug_str     0x00055791       0x50 Src/filter.o
-                              0x52f57 (size before relaxing)
- .debug_str     0x000557e1       0x1b Src/gpio.o
+ .debug_str     0x000553c6      0x3ca Src/displayDriver.o
+                              0x52ff5 (size before relaxing)
+ .debug_str     0x00055790       0x50 Src/filter.o
+                              0x52f56 (size before relaxing)
+ .debug_str     0x000557e0       0x1b Src/gpio.o
                               0x5278b (size before relaxing)
- .debug_str     0x000557fc       0x1c Src/interrupts.o
-                              0x52d54 (size before relaxing)
- .debug_str     0x00055818       0xde Src/ledFunctions.o
-                              0x529f8 (size before relaxing)
- .debug_str     0x000558f6      0x12c Src/main.o
-                              0x53626 (size before relaxing)
- .debug_str     0x00055a22       0x17 Src/spi.o
+ .debug_str     0x000557fb       0x1c Src/interrupts.o
+                              0x52d53 (size before relaxing)
+ .debug_str     0x00055817       0xde Src/ledFunctions.o
+                              0x529f7 (size before relaxing)
+ .debug_str     0x000558f5      0x12c Src/main.o
+                              0x53625 (size before relaxing)
+ .debug_str     0x00055a21       0x17 Src/spi.o
                               0x52bb2 (size before relaxing)
- .debug_str     0x00055a39       0x1b Src/stm32f0xx_hal_msp.o
+ .debug_str     0x00055a38       0x1b Src/stm32f0xx_hal_msp.o
                               0x52898 (size before relaxing)
- .debug_str     0x00055a54       0x48 Src/stm32f0xx_it.o
+ .debug_str     0x00055a53       0x48 Src/stm32f0xx_it.o
                               0x52a85 (size before relaxing)
- .debug_str     0x00055a9c       0x5a Src/system_stm32f0xx.o
+ .debug_str     0x00055a9b       0x5a Src/system_stm32f0xx.o
                               0x526fc (size before relaxing)
- .debug_str     0x00055af6       0x2c Src/tim.o
-                              0x530c2 (size before relaxing)
+ .debug_str     0x00055af5       0x2c Src/tim.o
+                              0x530c1 (size before relaxing)
 
 .comment        0x00000000       0x7f
  .comment       0x00000000       0x7f Drivers/STM32F0xx_HAL_Driver/Src/stm32f0xx_hal.o
