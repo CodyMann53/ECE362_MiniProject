@@ -23,7 +23,7 @@ struct color{
 #define BYTES ROWS*COLS*3
 
 // thresholds for spectrum analyzer
-#define INCREMENT 20
+#define INCREMENT 335
 #define THRESH1 INCREMENT
 #define THRESH2 THRESH1 + INCREMENT
 #define THRESH3 THRESH2 + INCREMENT
@@ -37,10 +37,10 @@ struct color{
 #define THRESH11 THRESH10 + INCREMENT
 
 //bass threshold for mode 1
-#define BASS_THRESH 150
+#define BASS_THRESH 1750
 
 //Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
-#define BOX_MAX_SIZE 3
+#define BOX_MAX_SIZE 4
 
 // brightness value for all of the lights
 #define BRIGHTNESS 5
@@ -54,7 +54,7 @@ struct color{
 
 /*box decay constants for how quickly the box moves in and and out */
 #define BOX_DECAY_RANGE 10
-#define BOX_DECAY_RATE 2
+#define BOX_DECAY_RATE 7
 
 /* FUNCTION DECLARATIONS */
 

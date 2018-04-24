@@ -49,9 +49,9 @@ void ledMatrixReorder(struct color leds[ROWS][COLS]){
 void setColor (struct color leds[ROWS][COLS], int row, int col, int percent, int * color)
 {
 		//set the red, green, and blue colors to a percentage brightness
-		leds[row][col].red = color[0]*percent/100;
-		leds[row][col].green = color[1]*percent/100;
-		leds[row][col].blue = color[2]*percent/100;
+		leds[row][col].red = color[0] * percent / 100;
+		leds[row][col].green = color[1] * percent / 100;
+		leds[row][col].blue = color[2] * percent / 100;
 
 	return;
 }
@@ -60,7 +60,7 @@ void allColor(struct color leds[ROWS][COLS], int percent, int * color){
 
 	for (int row = 0; row < ROWS; row++){
 		for( int col = 0; col < COLS; col++){
-			setColor(leds, row, col, BRIGHTNESS, color);
+			setColor(leds, row, col, percent, color);
 		}
 	}
 }
@@ -100,8 +100,13 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	// expand is set to a value based on how much the box has decayed back in and used to update the led matrix
 	int expand = 0;
 
-
-	if ( boxArea >= 3 * BOX_DECAY_RANGE){
+	if ( boxArea >= 5 * BOX_DECAY_RANGE){
+		expand = 5;
+	}
+	else if ( boxArea >= 4 * BOX_DECAY_RANGE){
+		expand = 4;
+	}
+	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
 		expand = 3;
 	}
 	else if ( boxArea >= 2 * BOX_DECAY_RANGE){
