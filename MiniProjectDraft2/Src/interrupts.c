@@ -11,9 +11,21 @@
 
 void tim3_IT(void){
 
-	// update ms counter if delay function sets the msCount flag
+	// update ms counter for delay if delay function sets the msCount flag
 	if (msCountFlag == 1){
-		ms = ms + 5;
+		msDelay = msDelay + 5;
+	}
+
+	// update ms counter
+	ms = ms + 5;
+
+	// set write flag every 20 ms
+	if (ms >= 20){
+
+		//reset ms
+		ms = 0;
+
+		writeFlag = 1;
 	}
 
 	// update user button current value

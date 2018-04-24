@@ -44,13 +44,13 @@
 void delay_ms(int msValue){
 
 	//reset ms value to 0
-	ms = 0;
+	msDelay = 0;
 
 	//set ms count flag
 	msCountFlag = 1;
 
 	// wait for desired amount of ms
-	while( ms < msValue);
+	while( msDelay < msValue);
 
 	//clear ms count flag
 	msCountFlag = 0;

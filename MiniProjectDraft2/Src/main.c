@@ -58,7 +58,9 @@
 /* USER CODE BEGIN PV */
 
 /* Private variables ---------------------------------------------------------*/
+	volatile int msDelay = 0;
 	volatile int ms = 0;
+	volatile int writeFlag = 0;
 	volatile int userBtnFlag = 0;
 	volatile int userBtnCurrent = 0;
 	volatile int userBtnPrevious = 0;
@@ -81,8 +83,10 @@
 	 /* memory for mode 1*/
 	 int boxArea =  0;
 	 int borderArea = 0;
-	 int * mode1ColorPattern[9] = {teal, purple, olive, white, cyan, yellow, magenta, blue, green};
+	 int * mode1ColorPattern[NUMBER_OF_BOX_COLORS] = {teal, purple, olive, white, cyan, yellow, magenta, blue, green};
 	 int colorIndex = 0;
+	 int bassCurrent = 0;
+	 int bassPrevious = 0;
 
 /* USER CODE END PV */
 
@@ -186,11 +190,15 @@ int main(void)
 		  //update leds
 		  mode1( leds, spectrum);
 
-		  // write to the led strip
-		  writeLeds(leds);
+		  // write to the led strip if flag has been set
+		  if (writeFlag == 1){
 
-		  //wait for led write to complete
-		  delay_ms(20);
+			  // write to strip
+			  writeLeds(leds);
+
+			  // clear flag
+			  writeFlag = 0;
+		  }
 
 	  }
 
@@ -205,15 +213,6 @@ int main(void)
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
-
-		  //randomize LED display
-		  twinkle(leds);
-
-		  // write to the led strip
-		  writeLeds(leds);
-
-		  // delay to allow board to keep colors
-		  delay_ms(100);
 
 	  }
 
@@ -238,11 +237,15 @@ int main(void)
 		  // update led array based on audio spectrum content
 		  spectrumAnalyzer(leds, spectrum);
 
-		  // write to the led strip
-		  writeLeds(leds);
+		  // write to the led strip if flag has been set
+		  if (writeFlag == 1){
 
-		  // allow time for leds to be updated
-		  delay_ms(5);
+			  // write to strip
+			  writeLeds(leds);
+
+			  // clear flag
+			  writeFlag = 0;
+		  }
 
 	  }
 

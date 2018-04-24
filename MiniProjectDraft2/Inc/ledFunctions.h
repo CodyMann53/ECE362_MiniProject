@@ -37,10 +37,13 @@ struct color{
 #define THRESH11 THRESH10 + INCREMENT
 
 //bass threshold for mode 1
-#define BASS_THRESH 1750
+#define BASS_THRESH 2000
 
 //Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
-#define BOX_MAX_SIZE 4
+#define BOX_MAX_SIZE 5
+
+//defines the number of colors that mode 1 cycles through for the inner box
+#define NUMBER_OF_BOX_COLORS 9
 
 // brightness value for all of the lights
 #define BRIGHTNESS 5
@@ -53,8 +56,8 @@ struct color{
 #define BOTTOM_SIDE 5
 
 /*box decay constants for how quickly the box moves in and and out */
-#define BOX_DECAY_RANGE 10
-#define BOX_DECAY_RATE 7
+#define BOX_DECAY_RANGE 100
+#define BOX_DECAY_RATE 10
 
 /* FUNCTION DECLARATIONS */
 
@@ -86,10 +89,6 @@ void writeLeds(struct color leds[ROWS][COLS]);
 void twinkle(struct color leds[ROWS][COLS]);
 
 /* sets the inner box color and area based on base frequency value for mode1 */
-void setInnerBox(struct color leds[ROWS][COLS], int * spectrum);
-
-/* sets the backgound leds that are not apart of the box beating to the bass.
- * This is for mode 1 */
-void setBackground(struct color leds[ROWS][COLS]);
+void setMatrix(struct color leds[ROWS][COLS], int * spectrum);
 
 #endif /* LEDFUNCTIONS_H_ */

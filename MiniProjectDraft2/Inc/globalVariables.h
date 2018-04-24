@@ -12,7 +12,13 @@
 #include "ledFunctions.h"
 
 /* used to keep track of millesonds for delay function */
+ extern volatile int msDelay;
+
+ /* keeps track of ms */
  extern volatile int ms;
+
+ /* used to tell main while loop when to write to the led strip */
+ extern volatile int writeFlag;
 
  /* Flag for knowing when user button 1 has been pressed */
  extern volatile int userBtnFlag;
@@ -38,10 +44,12 @@
  extern int maroon[3];
  extern int olive[3];
  extern int purple[3];
- extern int boxArea;
- extern int borderArea;
 
- extern int * mode1ColorPattern[9];
+
+ extern int boxArea;
+ extern int bassCurrent;
+ extern int bassPrevious;
+ extern int * mode1ColorPattern[NUMBER_OF_BOX_COLORS];
  extern int colorIndex;
 
 #endif /* GLOBALVARIABLES_H_ */

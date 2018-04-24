@@ -65,12 +65,15 @@ void allColor(struct color leds[ROWS][COLS], int percent, int * color){
 	}
 }
 
-void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
+void setMatrix(struct color leds[ROWS][COLS], int * spectrum){
 
 	/* CHECKING SPECTRUM TO SET THE BOX AREA */
 
+	//sample
+	bassCurrent = spectrum[0];
+
 	// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
-	if ( ( (spectrum[1] > BASS_THRESH) || (spectrum[0] > BASS_THRESH)  ) ){
+	if ( (bassCurrent > BASS_THRESH) & (bassPrevious < 500) ){
 		boxArea = BOX_MAX_SIZE *  BOX_DECAY_RANGE;
 	}
 	else{// if the base spectrums didn't not get above threshold, then keep on decaying back to the middle
@@ -87,13 +90,16 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 			colorIndex = colorIndex + 1;
 
 			// keep color index from 0-8
-			if (colorIndex > 8){
+			if (colorIndex > NUMBER_OF_BOX_COLORS - 1){
 
 				//reset back to first color
 				colorIndex = 0;
 			}
 		}
 	}
+
+	//updating the bass current and bass previous
+	bassPrevious = bassCurrent;
 
 	/* UPDATING THE LED MATRIX BASED BOX'S CURRENT AREA */
 
@@ -103,7 +109,7 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	if ( boxArea >= 5 * BOX_DECAY_RANGE){
 		expand = 5;
 	}
-	else if ( boxArea >= 4 * BOX_DECAY_RANGE){
+	if ( boxArea >= 4 * BOX_DECAY_RANGE){
 		expand = 4;
 	}
 	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
@@ -126,31 +132,35 @@ void setInnerBox(struct color leds[ROWS][COLS], int * spectrum){
 	if ( (boxArea >= 0 ) & (expand >=0) ){
 
 		// loop through each row that needs to be set
-		for(int row = (BOTTOM_SIDE - expand); row <= (TOP_SIDE + expand); row++){
+		for(int row = 0; row < ROWS; row++){
 
 			//loop through each column that needs to be set for each row
-			for(int col = (LEFT_SIDE + expand); col >= (RIGHT_SIDE - expand); col--){
+			for(int col = 0; col < COLS; col++){
 
-				// set the specific led to desired color
-				setColor(leds, row, col, BRIGHTNESS, mode1ColorPattern[colorIndex]);
+				// if inside the box range set the box color
+				if(  ( col >= (RIGHT_SIDE - expand) )  && ( col <= LEFT_SIDE + expand) && (row <= TOP_SIDE + expand) && (row >= BOTTOM_SIDE - expand) ){
+
+					setColor(leds, row, col, BRIGHTNESS, yellow);
+				}
+				else{// set the background color
+
+					setColor(leds, row, col, BRIGHTNESS, red);
+
+				}
 			}
 		}
 	}
-}
+	else{
+		allColor(leds, BRIGHTNESS, red);
+	}
 
-void setBackground(struct color leds[ROWS][COLS]){
-
-	// set everything to red for now
-	allColor(leds, BRIGHTNESS, red);
 
 }
+
 void mode1(struct color leds[ROWS][COLS], int * spectrum){
 
-	// set the background colors (everything else in the matrix that is not the box for the bass)
-	setBackground(leds);
-
-	// update inner box matrix values
-	setInnerBox(leds, spectrum);
+	// update the matrix
+	setMatrix(leds, spectrum);
 }
 
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
