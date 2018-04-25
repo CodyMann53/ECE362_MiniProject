@@ -20,7 +20,7 @@ void tim3_IT(void){
 	ms = ms + 5;
 
 	// set write flag every 20 ms
-	if (ms >= 20){
+	if (ms >= 10){
 
 		//reset ms
 		ms = 0;

@@ -82,11 +82,15 @@
 
 	 /* memory for mode 1*/
 	 int boxArea =  0;
+	 int boxAreaPrevious = 0;
 	 int borderArea = 0;
-	 int * mode1ColorPattern[NUMBER_OF_BOX_COLORS] = {teal, purple, olive, white, cyan, yellow, magenta, blue, green};
+	 int * mode1BoxColorPattern[NUMBER_OF_BOX_COLORS] = {red, green, blue, olive};
+	 int * mode1BackgroundColorPattern[NUMBER_OF_BOX_COLORS] = {yellow, white, cyan, purple};
 	 int colorIndex = 0;
 	 int bassCurrent = 0;
 	 int bassPrevious = 0;
+	 int backgroundColorIndex = 0;
+	 int incrementBackgroundColor = 0;
 
 /* USER CODE END PV */
 
@@ -246,7 +250,6 @@ int main(void)
 			  // clear flag
 			  writeFlag = 0;
 		  }
-
 	  }
 
 	  //reset user button flag

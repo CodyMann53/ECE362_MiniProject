@@ -65,102 +65,122 @@ void allColor(struct color leds[ROWS][COLS], int percent, int * color){
 	}
 }
 
-void setMatrix(struct color leds[ROWS][COLS], int * spectrum){
+void updateBoxArea(int * spectrum){
 
 	/* CHECKING SPECTRUM TO SET THE BOX AREA */
 
-	//sample
-	bassCurrent = spectrum[0];
+		//sample
+		bassCurrent = spectrum[2];
 
-	// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
-	if ( (bassCurrent > BASS_THRESH) & (bassPrevious < 500) ){
-		boxArea = BOX_MAX_SIZE *  BOX_DECAY_RANGE;
-	}
-	else{// if the base spectrums didn't not get above threshold, then keep on decaying back to the middle
+		// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
+		if ( (bassCurrent > BASS_HIGH) & (bassPrevious < BASS_HIGH) & (boxArea < 1 * BOX_DECAY_RANGE) ){
 
-		if (boxArea >= 0){// if the box area is still present on board, then keep bringing it back in. Box will go away when box area gets to -1
+			// set increment background color flag so that the next time the
+			// bass dies down the next color gets set as background
+			incrementBackgroundColor = 1;
 
-			// decrease box area
-			boxArea = boxArea - BOX_DECAY_RATE;
+			// set to maximum box size
+			boxArea = BOX_MAX_SIZE *  BOX_DECAY_RANGE;
 
 		}
-		else{// box came all the way back in
+		else{// if the base spectrums didn't not get above threshold, then keep on decaying back to the middle
 
-			// increment color if box came all the way back in
-			colorIndex = colorIndex + 1;
+			if (boxArea >= 0){// if the box area is still present on board, then keep bringing it back in. Box will go away when box area gets to -1
 
-			// keep color index from 0-8
-			if (colorIndex > NUMBER_OF_BOX_COLORS - 1){
+				// decrease box area
+				boxArea = boxArea - BOX_DECAY_RATE;
 
-				//reset back to first color
-				colorIndex = 0;
+			}
+			else{// box came all the way back in
+
+				// increment color if box came all the way back in
+				colorIndex = colorIndex + 1;
+
+				// keep color index from 0-8
+				if (colorIndex > NUMBER_OF_BOX_COLORS - 1){
+
+					//reset back to first color
+					colorIndex = 0;
+				}
 			}
 		}
-	}
 
-	//updating the bass current and bass previous
-	bassPrevious = bassCurrent;
+		//updating bass spectrum and box area memory
+		bassPrevious = bassCurrent;
+		boxAreaPrevious = boxArea;
+
+}
+
+void setMatrix(struct color leds[ROWS][COLS]){
 
 	/* UPDATING THE LED MATRIX BASED BOX'S CURRENT AREA */
 
 	// expand is set to a value based on how much the box has decayed back in and used to update the led matrix
 	int expand = 0;
 
-	if ( boxArea >= 5 * BOX_DECAY_RANGE){
+	if ( boxArea >= (BOX_MAX_SIZE - 1) * BOX_DECAY_RANGE){
 		expand = 5;
 	}
-	if ( boxArea >= 4 * BOX_DECAY_RANGE){
+	if ( boxArea >= 3 * BOX_DECAY_RANGE){
 		expand = 4;
 	}
-	else if ( boxArea >= 3 * BOX_DECAY_RANGE){
+	else if ( boxArea >= 2 * BOX_DECAY_RANGE){
 		expand = 3;
 	}
-	else if ( boxArea >= 2 * BOX_DECAY_RANGE){
+	else if ( boxArea >= 1 * BOX_DECAY_RANGE){
 		expand = 2;
 	}
-	else if ( boxArea >= 1 * BOX_DECAY_RANGE){
+	else if ( boxArea >= 0 * BOX_DECAY_RANGE){
 		expand = 1;
 	}
-	else if ( boxArea >= 0 * BOX_DECAY_RANGE){
-		expand = 0;
-	}
 	else{
+
 		expand = -1;
 	}
 
-	// as long as the box area is greater than or equal to 0, the box is still decaying and needs to be updated on the led matrix
-	if ( (boxArea >= 0 ) & (expand >=0) ){
+	// loop through each row that needs to be set
+	for(int row = 0; row < ROWS; row++){
 
-		// loop through each row that needs to be set
-		for(int row = 0; row < ROWS; row++){
+		//loop through each column that needs to be set for each row
+		for(int col = 0; col < COLS; col++)
 
-			//loop through each column that needs to be set for each row
-			for(int col = 0; col < COLS; col++){
+			// if inside the box range set the box color
+			if(  ( col >= (RIGHT_SIDE - expand) )  && ( col <= LEFT_SIDE + expand) && (row <= TOP_SIDE + expand) && (row >= BOTTOM_SIDE - expand) && (expand >= 0)){
 
-				// if inside the box range set the box color
-				if(  ( col >= (RIGHT_SIDE - expand) )  && ( col <= LEFT_SIDE + expand) && (row <= TOP_SIDE + expand) && (row >= BOTTOM_SIDE - expand) ){
-
-					setColor(leds, row, col, BRIGHTNESS, yellow);
-				}
-				else{// set the background color
-
-					setColor(leds, row, col, BRIGHTNESS, red);
-
-				}
+				setColor(leds, row, col, BRIGHTNESS, mode1BoxColorPattern[colorIndex] );
 			}
+			else{// set the background color
+
+				setColor(leds, row, col, BRIGHTNESS, mode1BackgroundColorPattern[backgroundColorIndex]);
+			}
+	}
+
+	// if the past two samples did not include a beat
+	if ( (boxArea < 0) & (boxAreaPrevious < 0) & (incrementBackgroundColor == 1) ){
+
+		// clear increment background color
+		incrementBackgroundColor = 0;
+
+		//update to the next background color
+		backgroundColorIndex += 1;
+
+		// make sure background color index is in range
+		if ( backgroundColorIndex > NUMBER_OF_BACKGROUND_COLORS){
+
+			// reset the background color index back to the starting point
+			backgroundColorIndex = 0;
 		}
 	}
-	else{
-		allColor(leds, BRIGHTNESS, red);
-	}
-
-
 }
 
 void mode1(struct color leds[ROWS][COLS], int * spectrum){
 
-	// update the matrix
-	setMatrix(leds, spectrum);
+	//udpate box area
+	updateBoxArea(spectrum);
+
+	// set the matrix colors
+	setMatrix(leds);
+
 }
 
 void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
