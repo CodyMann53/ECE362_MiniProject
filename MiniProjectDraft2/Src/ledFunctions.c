@@ -162,11 +162,11 @@ void setMatrix(struct color leds[ROWS][COLS]){
 			// if inside the box range set the box color
 			if(  ( col >= (RIGHT_SIDE - expand) )  && ( col <= LEFT_SIDE + expand) && (row <= TOP_SIDE + expand) && (row >= BOTTOM_SIDE - expand) && (expand >= 0)){
 
-				setColor(leds, row, col, BRIGHTNESS, mode1BoxColorPattern[colorIndex] );
+				setColor(leds, row, col, brightness, mode1BoxColorPattern[colorIndex] );
 			}
 			else{// set the background color
 
-				setColor(leds, row, col, BRIGHTNESS, mode1BackgroundColorPattern[backgroundColorIndex]);
+				setColor(leds, row, col, brightness, mode1BackgroundColorPattern[backgroundColorIndex]);
 			}
 	}
 
@@ -205,22 +205,22 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
 
 		// if else clause to determine which colors get associated with each frequency band
 		if( (col == 0) || (col == 1) ){ // 6th band
-			setColor(leds, x, col, BRIGHTNESS, red);
+			setColor(leds, x, col, brightness, red);
 		}
 		else if( (col == 2) || (col==3) ){ // 5th band
-			setColor(leds, x, col, BRIGHTNESS, blue);
+			setColor(leds, x, col, brightness, blue);
 		}
 		else if( (col == 4) || (col==5) ){// 4th band
-			setColor(leds, x, col, BRIGHTNESS, magenta);
+			setColor(leds, x, col, brightness, magenta);
 		}
 		else if( (col == 6) || (col==7) ){// 3rd band
-			setColor(leds, x, col, BRIGHTNESS, green);
+			setColor(leds, x, col, brightness, green);
 		}
 		else if( (col == 8) || (col==9) ){// 2nd band
-			setColor(leds, x, col, BRIGHTNESS, yellow);
+			setColor(leds, x, col, brightness, yellow);
 		}
 		else if( (col == 10) || (col==11) ){// 1st band
-			setColor(leds, x, col, BRIGHTNESS, teal);
+			setColor(leds, x, col, brightness, teal);
 		}
 	}
 }
@@ -228,7 +228,7 @@ void spectrumColor (struct color leds[ROWS][COLS], int row, int col){
 void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 
 	//reset all of the leds to off
-	allColor(leds, BRIGHTNESS, off);
+	allColor(leds, brightness, off);
 
 	// start at second to highest frequency band
 	int x = 5;
@@ -339,14 +339,14 @@ void twinkle(struct color leds[ROWS][COLS]){
   start[0] = red;
   start[1] = green;
   start[2] = blue;
-  allColor(leds, BRIGHTNESS, start);
-  allColor(leds, BRIGHTNESS, off);
+  allColor(leds, brightness, start);
+  allColor(leds, brightness, off);
   count++;
   if(msCount > 50)
   {
       msCount = 0;
       fade = fade + fadeAmount;
-      if(fade <= 5 || fade >= MAX_BRIGHTNESS)
+      if(fade <= 5 || fade >= brightness)
       {
               fadeAmount *= -1;
       }
@@ -389,35 +389,4 @@ void twinkle(struct color leds[ROWS][COLS]){
           }
        }
    }
-}
-
-void fast(struct color leds[ROWS][COLS])
-{
-  static int i = 0;
-  int row;
-  int col;
-  allColor(leds, BRIGHTNESS, off);
-  for(row = 0; row < ROWS; row++)
-  {
-      for(col = 0; col < COLS; col++)
-      {
-          setColor(leds, row, col, 100, mode1ColorPattern[i]);
-          writeLeds(leds);
-          delay_us(50);
-      }
-  }
-  for(col = COLS-1; col >=0; col--)
-  {
-      for(row = ROWS-1; row >= 0; row--)
-      {
-          setColor(leds, row, col, 0, off);
-          writeLeds(leds);
-          delay_us(50);
-      }
-  }
-  i++;
-  if(i == 10)
-  {
-      i = 0;
-  }
 }

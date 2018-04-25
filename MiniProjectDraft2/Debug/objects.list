@@ -24,6 +24,7 @@
 "Src/ledDriverLowSpeed.o"
 "Src/ledFunctions.o"
 "Src/main.o"
+"Src/pot.o"
 "Src/spi.o"
 "Src/stm32f0xx_hal_msp.o"
 "Src/stm32f0xx_it.o"

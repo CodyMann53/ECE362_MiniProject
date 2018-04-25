@@ -48,7 +48,7 @@ struct color{
 #define NUMBER_OF_BACKGROUND_COLORS 4
 
 // brightness value for all of the lights
-#define BRIGHTNESS 15
+#define BRIGHTNESS 10
 #define MAX_BRIGHTNESS 100
 
 // constants for mode 1 box size
@@ -95,8 +95,5 @@ void updateBoxArea(int * spectrum);
 
 /* sets the correct color values for the led matrix in mode 1 */
 void setMatrix(struct color leds[ROWS][COLS]);
-
-/* fast mode + */
-void fast(struct color leds[ROWS][COLS]);
 
 #endif /* LEDFUNCTIONS_H_ */

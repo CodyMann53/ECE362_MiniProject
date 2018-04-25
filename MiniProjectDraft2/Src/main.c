@@ -50,6 +50,7 @@
 #include "interrupts.h"
 #include "filter.h"
 #include "stdlib.h"
+#include "pot.h"
 
 /* USER CODE END Includes */
 
@@ -97,6 +98,8 @@
 	 int msCount = 0;
 	 int fade = BRIGHTNESS;
 	 int *  mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, white, yellow, magenta, blue, green};
+
+	 int brightness = 0;
 
 /* USER CODE END PV */
 
@@ -185,14 +188,76 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  /* TWINKLE*/
+
+	  //update display
+	  displayClear();
+	  transmitDisplay("Freak Out");
+
+	  //mode 2 event loop
+	  while (userBtnFlag == 0){
+
+		  // get brightness value from pot
+		  readBrightness();
+
+		  // update leds
+		  twinkle(leds);
+
+		  // write to led strip
+		  writeLeds(leds);
+
+		  // write to the led strip if flag has been set
+		  delay_ms(50);
+
+	  }
+
+	  // reset user button flag
+	  userBtnFlag = 0;
+
+	  /* SPECTRUM ANAYLYZER*/
+
+	  //update display
+	  displayClear();
+	  transmitDisplay("Spectrum");
+
+	  //mode 3 event loop
+	  while (userBtnFlag == 0){
+
+		  // get brightness value from pot
+		  readBrightness();
+
+		  //update filter
+		  filter(spectrum);
+
+		  // update led array based on audio spectrum content
+		  spectrumAnalyzer(leds, spectrum);
+
+		  // write to the led strip if flag has been set
+		  if (writeFlag == 1){
+
+			  // write to strip
+			  writeLeds(leds);
+
+			  // clear flag
+			  writeFlag = 0;
+		  }
+	  }
+
+	  //reset user button flag
+	  userBtnFlag = 0;
+
 	  /* MODE 1 */
 
 	  //update display
 	  displayClear();
-	  transmitDisplay("Mode 1");
+	  transmitDisplay("Beat");
 
 	  //mode 1 event loop
 	  while(userBtnFlag == 0){
+
+		  // get brightness value from pot
+		  readBrightness();
 
 		  //update the filter values
 		  filter(spectrum);
@@ -213,77 +278,6 @@ int main(void)
 	  }
 
 	  // reset user button flag
-	  userBtnFlag = 0;
-
-	  /* TWINKLE*/
-
-	  //update display
-	  displayClear();
-	  transmitDisplay("Twinkle");
-
-	  //mode 2 event loop
-	  while (userBtnFlag == 0){
-
-		  // update leds
-		  twinkle(leds);
-
-		  // write to led strip
-		  writeLeds(leds);
-
-		  // write to the led strip if flag has been set
-		  delay_ms(50);
-
-	  }
-
-	  // reset user button flag
-	  userBtnFlag = 0;
-	  /* FAST MODE*/
-
-	  //update display
-	  displayClear();
-	  transmitDisplay("FAST+");
-
-	  //mode 2 event loop
-	  while (userBtnFlag == 0){
-
-		  // update leds
-		  fast(leds);
-
-		  // write to the led strip if flag has been set
-		  delay_ms(50);
-
-	  }
-
-	  // reset user button flag
-	  userBtnFlag = 0;
-
-	  /* SPECTRUM ANAYLYZER*/
-
-	  //update display
-	  displayClear();
-	  transmitDisplay("Spectrum");
-
-	  //mode 3 event loop
-	  while (userBtnFlag == 0){
-
-		  //update filter
-		  filter(spectrum);
-
-		  // update led array based on audio spectrum content
-		  spectrumAnalyzer(leds, spectrum);
-
-		  // write to the led strip if flag has been set
-		  if (writeFlag == 1){
-
-			  // write to strip
-			  writeLeds(leds);
-
-			  // clear flag
-			  writeFlag = 0;
-		  }
-	  }
-
-	  //reset user button flag
 	  userBtnFlag = 0;
 
   /* USER CODE END WHILE */

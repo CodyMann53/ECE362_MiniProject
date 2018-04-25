@@ -64,4 +64,7 @@
  extern int fade;
  extern int * mode1ColorPattern[10];
 
+// received from the pot for setting overall brightness
+extern int brightness;
+
 #endif /* GLOBALVARIABLES_H_ */

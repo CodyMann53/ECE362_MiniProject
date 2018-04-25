@@ -11,6 +11,7 @@ C_SRCS += \
 ../Src/interrupts.c \
 ../Src/ledFunctions.c \
 ../Src/main.c \
+../Src/pot.c \
 ../Src/spi.c \
 ../Src/stm32f0xx_hal_msp.c \
 ../Src/stm32f0xx_it.c \
@@ -29,6 +30,7 @@ OBJS += \
 ./Src/ledDriverLowSpeed.o \
 ./Src/ledFunctions.o \
 ./Src/main.o \
+./Src/pot.o \
 ./Src/spi.o \
 ./Src/stm32f0xx_hal_msp.o \
 ./Src/stm32f0xx_it.o \
@@ -46,6 +48,7 @@ C_DEPS += \
 ./Src/interrupts.d \
 ./Src/ledFunctions.d \
 ./Src/main.d \
+./Src/pot.d \
 ./Src/spi.d \
 ./Src/stm32f0xx_hal_msp.d \
 ./Src/stm32f0xx_it.d \
