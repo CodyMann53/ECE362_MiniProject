@@ -193,7 +193,7 @@ int main(void)
 
 	  //update display
 	  displayClear();
-	  transmitDisplay("Freak Out");
+	  transmitDisplay(" Freq Out");
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
@@ -251,7 +251,7 @@ int main(void)
 
 	  //update display
 	  displayClear();
-	  transmitDisplay("Beat");
+	  transmitDisplay(" Beat");
 
 	  //mode 1 event loop
 	  while(userBtnFlag == 0){

@@ -5285,8 +5285,8 @@ LOAD c:/ac6/systemworkbench/plugins/fr.ac6.mcu.externaltools.arm-none.win32_1.15
                 0x08002d5c        0xd Src/adc.o
  *fill*         0x08002d69        0x3 
  .rodata.str1.4
-                0x08002d6c       0x2d Src/main.o
- *fill*         0x08002d99        0x3 
+                0x08002d6c       0x2e Src/main.o
+ *fill*         0x08002d9a        0x2 
  .rodata.str1.4
                 0x08002d9c        0xd Src/spi.o
  *fill*         0x08002da9        0x3 
