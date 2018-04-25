@@ -37,8 +37,8 @@ struct color{
 #define THRESH11 THRESH10 + INCREMENT
 
 //bass threshold for mode 1
-#define BASS_HIGH 2000
-
+#define BASS_HIGH 3000
+#define BASS_LOW 2500
 
 //Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
 #define BOX_MAX_SIZE 5
@@ -48,7 +48,7 @@ struct color{
 #define NUMBER_OF_BACKGROUND_COLORS 4
 
 // brightness value for all of the lights
-#define BRIGHTNESS 5
+#define BRIGHTNESS 15
 #define MAX_BRIGHTNESS 100
 
 // constants for mode 1 box size
@@ -59,7 +59,7 @@ struct color{
 
 /*box decay constants for how quickly the box moves in and and out */
 #define BOX_DECAY_RANGE 10
-#define BOX_DECAY_RATE 2
+#define BOX_DECAY_RATE 3
 
 /* FUNCTION DECLARATIONS */
 
@@ -69,7 +69,7 @@ void ledStripWriteLowSpeed(struct color leds[ROWS][COLS], int bytes);
 /* reorders the matrix rows that are out of place */
 void ledMatrixReorder(struct color leds[ROWS][COLS]);
 
-/* used to update led matrix and is the functio that should be used within main while loop after filtering is done */
+/* used to update led matrix and is the function that should be used within main while loop after filtering is done */
 void writeLeds(struct color leds[ROWS][COLS]);
 
 /* sets a particular led in the matrix to a desired color */
@@ -95,5 +95,8 @@ void updateBoxArea(int * spectrum);
 
 /* sets the correct color values for the led matrix in mode 1 */
 void setMatrix(struct color leds[ROWS][COLS]);
+
+/* fast mode + */
+void fast(struct color leds[ROWS][COLS]);
 
 #endif /* LEDFUNCTIONS_H_ */

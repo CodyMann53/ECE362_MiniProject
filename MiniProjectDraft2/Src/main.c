@@ -84,13 +84,19 @@
 	 int boxArea =  0;
 	 int boxAreaPrevious = 0;
 	 int borderArea = 0;
-	 int * mode1BoxColorPattern[NUMBER_OF_BOX_COLORS] = {red, green, blue, olive};
-	 int * mode1BackgroundColorPattern[NUMBER_OF_BOX_COLORS] = {yellow, white, cyan, purple};
+	 int * mode1BackgroundColorPattern[NUMBER_OF_BOX_COLORS] = {red, yellow, blue, purple};
+	 int * mode1BoxColorPattern[NUMBER_OF_BOX_COLORS] = {green, white, magenta, olive};
 	 int colorIndex = 0;
 	 int bassCurrent = 0;
 	 int bassPrevious = 0;
 	 int backgroundColorIndex = 0;
 	 int incrementBackgroundColor = 0;
+	 int incrementBoxColorFlag = 0;
+
+	 int fadeAmount = -1;
+	 int msCount = 0;
+	 int fade = BRIGHTNESS;
+	 int *  mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, white, yellow, magenta, blue, green};
 
 /* USER CODE END PV */
 
@@ -209,21 +215,46 @@ int main(void)
 	  // reset user button flag
 	  userBtnFlag = 0;
 
-	  /* MODE 2 */
+	  /* TWINKLE*/
 
 	  //update display
 	  displayClear();
-	  transmitDisplay("Mode 2");
+	  transmitDisplay("Twinkle");
 
 	  //mode 2 event loop
 	  while (userBtnFlag == 0){
+
+		  // update leds
+		  twinkle(leds);
+
+		  // write to led strip
+		  writeLeds(leds);
+
+		  // write to the led strip if flag has been set
+		  delay_ms(50);
 
 	  }
 
 	  // reset user button flag
 	  userBtnFlag = 0;
+	  /* FAST MODE*/
 
-	  //reset user button flag
+	  //update display
+	  displayClear();
+	  transmitDisplay("FAST+");
+
+	  //mode 2 event loop
+	  while (userBtnFlag == 0){
+
+		  // update leds
+		  fast(leds);
+
+		  // write to the led strip if flag has been set
+		  delay_ms(50);
+
+	  }
+
+	  // reset user button flag
 	  userBtnFlag = 0;
 
 	  /* SPECTRUM ANAYLYZER*/

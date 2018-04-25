@@ -9,6 +9,8 @@
 #include "ledFunctions.h"
 #include "globalVariables.h"
 #include "stm32f0xx_hal.h"
+#include "tim.h"
+#include "stdlib.h"
 
 /* FUNCTION DEFINITIONS */
 
@@ -70,14 +72,13 @@ void updateBoxArea(int * spectrum){
 	/* CHECKING SPECTRUM TO SET THE BOX AREA */
 
 		//sample
-		bassCurrent = spectrum[2];
+		bassCurrent = spectrum[0];
 
 		// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
-		if ( (bassCurrent > BASS_HIGH) & (bassPrevious < BASS_HIGH) & (boxArea < 1 * BOX_DECAY_RANGE) ){
+		if ( (bassCurrent > BASS_HIGH) & (bassPrevious < BASS_LOW) ){
 
-			// set increment background color flag so that the next time the
-			// bass dies down the next color gets set as background
-			incrementBackgroundColor = 1;
+			// set increment box color flag
+			incrementBoxColorFlag = 1;
 
 			// set to maximum box size
 			boxArea = BOX_MAX_SIZE *  BOX_DECAY_RANGE;
@@ -94,13 +95,27 @@ void updateBoxArea(int * spectrum){
 			else{// box came all the way back in
 
 				// increment color if box came all the way back in
-				colorIndex = colorIndex + 1;
+
+				// only increment color if there was no beat
+				if ( (boxArea < 0) & (boxAreaPrevious < 0) &  (incrementBoxColorFlag == 1) ){
+
+					// clear increment Box Color flag
+					incrementBoxColorFlag = 0;
+
+					// move to the next box color
+					colorIndex = colorIndex + 1;
+				}
+
 
 				// keep color index from 0-8
-				if (colorIndex > NUMBER_OF_BOX_COLORS - 1){
+				if (colorIndex > (NUMBER_OF_BOX_COLORS - 1) ){
+
+					// set increment background color flag once the box colors have cycled all the way through
+					incrementBackgroundColor = 1;
 
 					//reset back to first color
 					colorIndex = 0;
+
 				}
 			}
 		}
@@ -155,17 +170,17 @@ void setMatrix(struct color leds[ROWS][COLS]){
 			}
 	}
 
-	// if the past two samples did not include a beat
-	if ( (boxArea < 0) & (boxAreaPrevious < 0) & (incrementBackgroundColor == 1) ){
+	// if increment background flag has been set
+	if (incrementBackgroundColor == 1){
 
 		// clear increment background color
 		incrementBackgroundColor = 0;
 
 		//update to the next background color
-		backgroundColorIndex += 1;
+		backgroundColorIndex = backgroundColorIndex + 1;
 
 		// make sure background color index is in range
-		if ( backgroundColorIndex > NUMBER_OF_BACKGROUND_COLORS){
+		if ( backgroundColorIndex > (NUMBER_OF_BACKGROUND_COLORS - 1) ){
 
 			// reset the background color index back to the starting point
 			backgroundColorIndex = 0;
@@ -310,6 +325,99 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 	}
 }
 
+
 void twinkle(struct color leds[ROWS][COLS]){
-	// will be written by Fyffe
+
+  static int red = 255;
+  static int green = 140;
+  static int blue = 100;
+  static int start[3];
+  static int sub1 = 0;
+  static int sub2 = 0;
+  static int sub3 = 0;
+  static int count = 0;
+  start[0] = red;
+  start[1] = green;
+  start[2] = blue;
+  allColor(leds, BRIGHTNESS, start);
+  allColor(leds, BRIGHTNESS, off);
+  count++;
+  if(msCount > 50)
+  {
+      msCount = 0;
+      fade = fade + fadeAmount;
+      if(fade <= 5 || fade >= MAX_BRIGHTNESS)
+      {
+              fadeAmount *= -1;
+      }
+  }
+  for(int row = 0; row < 12; row++)
+  {
+      for(int col = 0; col < 12; col++)
+      {
+          //initializes the colors for each led
+          red += sub1;
+          blue += sub2;
+          green += sub3;
+          start[0] = red;
+          start[1] = green;
+          start[2] = blue;
+          setColor(leds, row, col, fade, start);
+                   //creates a random value to be subtracted from red
+          sub1 = (rand() + 0)%(5+1);
+          sub1 *= -1;
+
+                   //keeps it in warm color range
+          if(red < 140){
+              red = 255;
+          }
+          //creates a random value to be subtracted from green
+          sub2 = (rand() + 0)%(5+1);
+          sub2 *= -1;
+
+          //keeps it in warm color range
+          if(green < 100){
+              green = 140;
+          }
+          //creates a random value to be subtracted from blue
+          sub3 = (rand() + 0)%(5+1);
+          sub3 *= -1;
+
+          //keeps it in warm color range
+          if(blue < 50){
+              blue = 100;
+          }
+       }
+   }
+}
+
+void fast(struct color leds[ROWS][COLS])
+{
+  static int i = 0;
+  int row;
+  int col;
+  allColor(leds, BRIGHTNESS, off);
+  for(row = 0; row < ROWS; row++)
+  {
+      for(col = 0; col < COLS; col++)
+      {
+          setColor(leds, row, col, 100, mode1ColorPattern[i]);
+          writeLeds(leds);
+          delay_us(50);
+      }
+  }
+  for(col = COLS-1; col >=0; col--)
+  {
+      for(row = ROWS-1; row >= 0; row--)
+      {
+          setColor(leds, row, col, 0, off);
+          writeLeds(leds);
+          delay_us(50);
+      }
+  }
+  i++;
+  if(i == 10)
+  {
+      i = 0;
+  }
 }

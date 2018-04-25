@@ -57,5 +57,11 @@
  extern int backgroundColorIndex;
  extern int boxAreaPrevious;
  extern int incrementBackgroundColor;
+ extern int incrementBoxColorFlag;
+
+ extern int fadeAmount;
+ extern int msCount;
+ extern int fade;
+ extern int * mode1ColorPattern[10];
 
 #endif /* GLOBALVARIABLES_H_ */
