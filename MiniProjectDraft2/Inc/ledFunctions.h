@@ -37,8 +37,8 @@ struct color{
 #define THRESH11 THRESH10 + INCREMENT
 
 //bass threshold for mode 1
-#define BASS_HIGH 3000
-#define BASS_LOW 2500
+#define BASS_THRESH_HIGH 3500
+#define BASS_THRESH_LOW 3250
 
 //Bass box max size for mode 1 ( 0-5 with 5 being the whole board and 0 a 2x2 box in the middle)
 #define BOX_MAX_SIZE 5

@@ -75,7 +75,7 @@ void updateBoxArea(int * spectrum){
 		bassCurrent = spectrum[0];
 
 		// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
-		if ( (bassCurrent > BASS_HIGH) & (bassPrevious < BASS_LOW) ){
+		if ( (bassCurrent > BASS_THRESH_HIGH) & (bassPrevious < BASS_THRESH_LOW) ){
 
 			// set increment box color flag
 			incrementBoxColorFlag = 1;
@@ -317,6 +317,7 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 			}
 			else{// no threshold met so only light frist row
 				spectrumColor(leds, 0, col);
+				spectrumColor(leds, 0, col + 1);
 			}
 		}
 
@@ -324,7 +325,6 @@ void spectrumAnalyzer(struct color leds[ROWS][COLS], int * spectrum){
 		x--;
 	}
 }
-
 
 void twinkle(struct color leds[ROWS][COLS]){
 

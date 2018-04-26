@@ -189,7 +189,7 @@ int main(void)
   while (1)
   {
 
-	  /* TWINKLE*/
+	  /* FREQ OUT*/
 
 	  //update display
 	  displayClear();
@@ -247,7 +247,7 @@ int main(void)
 	  //reset user button flag
 	  userBtnFlag = 0;
 
-	  /* MODE 1 */
+	  /* BEAT */
 
 	  //update display
 	  displayClear();
