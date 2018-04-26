@@ -98,7 +98,9 @@
 	 int msCount = 0;
 	 int fade = BRIGHTNESS;
 	 int *  mode1ColorPattern[10] = {teal, purple, olive, maroon, cyan, white, yellow, magenta, blue, green};
-
+	 int bassThresh = 2000;
+	 int bassSampleCount = 0;
+	 int bassMovingAverage = 0;
 	 int brightness = 0;
 
 /* USER CODE END PV */

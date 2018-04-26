@@ -74,8 +74,23 @@ void updateBoxArea(int * spectrum){
 		//sample
 		bassCurrent = spectrum[0];
 
+		// keep a sum of all the bass values and count as a sample
+		bassMovingAverage = bassMovingAverage + bassCurrent;
+		bassSampleCount += 1;
+
+		// if the desired number of samples have been taken
+		if (bassSampleCount > SAMPLES){
+
+			// take a moving average of all the bass values
+			bassThresh = bassMovingAverage / SAMPLES;
+
+			// reset the count back to zero
+			bassSampleCount = 0;
+
+		}
+
 		// if any of the base spectrums are above the set threshold, then set the box to the max size and allow the decay back in to start
-		if ( (bassCurrent > BASS_THRESH_HIGH) & (bassPrevious < BASS_THRESH_LOW) ){
+		if ( (bassCurrent > bassThresh) & (bassPrevious < bassThresh - BASS_THRESH_DIFF) ){
 
 			// set increment box color flag
 			incrementBoxColorFlag = 1;

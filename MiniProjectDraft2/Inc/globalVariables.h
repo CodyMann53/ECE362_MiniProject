@@ -63,6 +63,9 @@
  extern int msCount;
  extern int fade;
  extern int * mode1ColorPattern[10];
+ extern int bassThresh;
+ extern int bassSampleCount;
+ extern int bassMovingAverage;
 
 // received from the pot for setting overall brightness
 extern int brightness;
